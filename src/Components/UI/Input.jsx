@@ -18,7 +18,7 @@ const Input = ({ id, displayName, icon, type, isPassInput, ...rest }) => {
           type={isPassHide ? 'text' : type}
           {...rest}
           className={styles.input}
-          style={{ padding: type === 'password' && '1rem 3rem 1rem 3.5rem' }}
+          style={{ padding: type === 'password' && '1rem 3rem 1rem 3.1rem' }}
         />
         {isPassInput && (
           <img

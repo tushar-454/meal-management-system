@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import password from '../../assets/icon//cyber-security.png';
+import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
 import loginIllustration from '../../assets/login-illustration.png';

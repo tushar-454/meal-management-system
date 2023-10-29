@@ -1,9 +1,18 @@
 import PropTypes from 'prop-types';
 import styles from './LogSignLay.module.css';
 
-const LogSignLay = ({ illustration, title, handleSubmit, children }) => {
+const LogSignLay = ({
+  illustration,
+  title,
+  handleSubmit,
+  isRowDirectionReverse,
+  children,
+}) => {
   return (
-    <div className={styles.logSignWrap}>
+    <div
+      className={styles.logSignWrap}
+      style={{ flexDirection: isRowDirectionReverse && 'row-reverse' }}
+    >
       <div className={styles.logSignImg}>
         <img src={illustration} width={'100%'} />
       </div>
@@ -24,6 +33,7 @@ LogSignLay.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string,
   handleSubmit: PropTypes.func,
+  isRowDirectionReverse: PropTypes.bool,
 };
 
 export default LogSignLay;

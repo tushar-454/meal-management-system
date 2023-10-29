@@ -1,0 +1,13 @@
+.navItems {
+  display: flex;
+  gap: 1.5rem;
+}
+.navItem {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.navItem:hover {
+  font-weight: 800;
+}

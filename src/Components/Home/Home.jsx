@@ -1,7 +1,11 @@
+import Container from '../Reusable/Container';
+
 const Home = () => {
   return (
     <section>
-      <h1>This is my home Components</h1>
+      <Container>
+        <h1>This is my home Components</h1>
+      </Container>
     </section>
   );
 };

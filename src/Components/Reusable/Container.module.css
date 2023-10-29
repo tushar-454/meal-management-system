@@ -1,0 +1,27 @@
+.container {
+  width: 75%;
+  margin: auto;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+}
+@media (max-width: 425px) {
+  .container {
+    width: 100%;
+    padding: 0rem 0.5rem;
+  }
+}

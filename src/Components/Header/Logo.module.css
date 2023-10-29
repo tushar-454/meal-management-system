@@ -1,0 +1,7 @@
+.logoWrap {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  width: 5rem;
+}

@@ -20,3 +20,13 @@
 .button > img {
   width: 2.5rem;
 }
+
+@media (max-width: 1440px) {
+  .button {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  .button > img {
+    width: 1.5rem;
+  }
+}

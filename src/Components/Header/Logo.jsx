@@ -7,7 +7,7 @@ const Logo = () => {
     <div>
       <Link to={'/'} className={styles.logoWrap}>
         <img src={logo} alt='website main logo' className={styles.logo} />
-        <img src={appName} />
+        <img src={appName} className={styles.appName} />
       </Link>
     </div>
   );

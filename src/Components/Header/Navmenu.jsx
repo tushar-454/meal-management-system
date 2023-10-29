@@ -1,3 +1,4 @@
+import menuBar from '../../assets/icon/bar.svg';
 import { NavLink } from 'react-router-dom';
 import styles from './Navmenu.module.css';
 // javascript array with navmenu data for looping
@@ -31,13 +32,18 @@ const navItems = [
 
 const Navmenu = () => {
   return (
-    <div className={styles.navItems}>
-      {navItems?.map((item) => (
-        <NavLink key={item.id} to={item.path} className={styles.navItem}>
-          {item.name}
-        </NavLink>
-      ))}
-    </div>
+    <>
+      <div className={styles.menuBar}>
+        <img src={menuBar} alt='menubar' />
+      </div>
+      <div className={styles.navItems}>
+        {navItems?.map((item) => (
+          <NavLink key={item.id} to={item.path} className={styles.navItem}>
+            {item.name}
+          </NavLink>
+        ))}
+      </div>
+    </>
   );
 };
 

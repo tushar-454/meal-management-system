@@ -5,3 +5,21 @@
 .logo {
   width: 5rem;
 }
+
+@media (max-width: 1440px) {
+  .logo {
+    width: 4rem;
+  }
+  .appName {
+    width: 8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo {
+    width: 3rem;
+  }
+  .appName {
+    width: 5rem;
+  }
+}

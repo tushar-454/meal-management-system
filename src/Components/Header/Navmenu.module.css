@@ -11,3 +11,43 @@
 .navItem:hover {
   font-weight: 800;
 }
+
+.menuBar {
+  display: none;
+}
+
+@media (max-width: 1440px) {
+  .navItem {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .navItemsWrap {
+    position: relative;
+  }
+  .navItems {
+    width: 100%;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 6rem;
+    background-color: #f1f5f9;
+    border-radius: 0rem 0rem 1rem 1rem;
+    padding: 1rem;
+    transition: 0.3s;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  .navItem {
+    font-size: 1.3rem;
+  }
+  .menuBar {
+    display: initial;
+    position: absolute;
+    right: 8rem;
+  }
+  .menuBar > img {
+    width: 2.3rem;
+  }
+}

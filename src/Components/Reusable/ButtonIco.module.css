@@ -26,6 +26,23 @@
   font-weight: 500;
 }
 
+@media (max-width: 1024px) {
+  .buttonIco {
+    gap: 1.4rem;
+  }
+  .buttonIco p {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 992px) {
+  .buttonIco {
+    gap: 1.3rem;
+  }
+  .buttonIco p {
+    font-size: 1.3rem;
+  }
+}
+
 @media (max-width: 500px) {
   .buttonIco {
     gap: 1.1rem;

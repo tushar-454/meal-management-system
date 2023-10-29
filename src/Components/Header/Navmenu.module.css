@@ -5,6 +5,7 @@
 .navItem {
   font-size: 1.3rem;
   font-weight: 600;
+  color: #000000;
   text-decoration: none;
   transition: 0.2s;
 }
@@ -14,6 +15,16 @@
 
 .menuBar {
   display: none;
+}
+
+.active {
+  transition: 0.2s;
+  transform: rotate(45deg);
+}
+
+.inActive {
+  transition: 0.2s;
+  transform: rotate(0deg);
 }
 
 @media (max-width: 1440px) {
@@ -38,9 +49,14 @@
     transition: 0.3s;
     transform-origin: top;
     transform: scaleY(0);
+    z-index: 999;
+  }
+  .collapse {
+    transform: scaleY(1);
   }
   .navItem {
     font-size: 1.3rem;
+    color: #000000;
   }
   .menuBar {
     display: initial;

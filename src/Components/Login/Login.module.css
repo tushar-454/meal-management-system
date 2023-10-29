@@ -1,0 +1,21 @@
+.remforWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.forgotPass {
+  text-decoration: none;
+  transition: 0.2s;
+  color: black;
+}
+
+.forgotPass:hover {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+@media (max-width: 420px) {
+  .forgotPass {
+    font-size: 0.9rem;
+  }
+}

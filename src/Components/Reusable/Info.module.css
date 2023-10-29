@@ -1,0 +1,12 @@
+.infoWrap {
+  display: flex;
+  justify-content: center;
+}
+.info {
+  color: #000000;
+  font-weight: 500;
+}
+.info a {
+  color: #d53054;
+  text-decoration: none;
+}

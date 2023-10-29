@@ -45,9 +45,15 @@
   .menuBar {
     display: initial;
     position: absolute;
-    right: 8rem;
+    right: 9rem;
   }
   .menuBar > img {
     width: 2.3rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .menuBar {
+    right: 8rem;
   }
 }

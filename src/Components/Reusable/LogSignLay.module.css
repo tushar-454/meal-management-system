@@ -1,0 +1,48 @@
+.logSignWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 4rem 0rem;
+}
+.logSignImg,
+.logSignForm {
+  width: 50%;
+}
+
+.formTitle h1 {
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  margin: 2rem 0rem;
+}
+
+.formWrap {
+  background-color: #f6f6f6;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .logSignWrap {
+    flex-direction: column;
+  }
+  .logSignImg {
+    display: none;
+  }
+  .logSignForm {
+    width: 90%;
+  }
+}
+
+@media (max-width: 420px) {
+  .formWrap {
+    padding: 1rem;
+  }
+  .logSignWrap {
+    margin: 2rem 0rem;
+  }
+  .logSignForm {
+    width: 100%;
+  }
+}

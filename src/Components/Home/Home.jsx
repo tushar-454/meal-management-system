@@ -4,14 +4,14 @@ import LinkButton from '../UI/LinkButton';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const isEmailVarified = false;
+  const isEmailVarified = true;
   return (
     <section>
       <Container>
         <h1>This is my home Components</h1>
       </Container>
       {/* if user not verified email show this modal  */}
-      {isEmailVarified && (
+      {isEmailVarified || (
         <div className={styles.mailVerifyModal}>
           <h1>
             Your Email is not verified. Check your mail.{' '}

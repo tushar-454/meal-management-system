@@ -30,6 +30,13 @@
 td {
   text-wrap: nowrap;
 }
+.table tr {
+  transition: 0.2s;
+}
+.table tr:hover,
+.table tr:focus {
+  background-color: #ffc1078c;
+}
 .even {
   background-color: #f8fafc;
 }

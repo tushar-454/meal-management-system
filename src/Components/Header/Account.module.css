@@ -12,8 +12,9 @@
   position: relative;
 }
 .userProfileWrap img {
-  width: 4rem;
+  width: 3.5rem;
   cursor: pointer;
+  border-radius: 100px;
 }
 .userProfileDropdownWrap {
   position: absolute;

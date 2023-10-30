@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
@@ -13,6 +15,7 @@ import Checkbox from '../UI/Checkbox';
 import Input from '../UI/Input';
 import styles from './Login.module.css';
 const Login = () => {
+  const { loginWithGoogle } = useContext(AuthContext);
   return (
     <section>
       <Container>
@@ -44,7 +47,11 @@ const Login = () => {
           </div>
           <Button displayName={'Login'} type={'submit'} />
           <Divider text={'Or'} />
-          <ButtonIco displayName={'Login with google'} icon={google} />
+          <ButtonIco
+            displayName={'Login with google'}
+            icon={google}
+            onClick={loginWithGoogle}
+          />
           <Info
             text={'Don’t have an account.'}
             linkText={'Signup'}

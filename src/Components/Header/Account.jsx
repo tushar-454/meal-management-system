@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 import signup from '../../assets/icon/add-user.png';
 import login from '../../assets/icon/enter.png';
 import signout from '../../assets/icon/exit.png';
-import profile from '../../assets/icon/man.png';
 import darkmode from '../../assets/icon/night-mode.png';
 import bellIco from '../../assets/icon/notification.png';
 import LinkButton from '../UI/LinkButton';
@@ -12,7 +12,7 @@ import styles from './Account.module.css';
 const Account = () => {
   const [isShowProDropdown, setShowProDropdown] = useState(false);
   const { pathname } = useLocation();
-  const user = true;
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     window.addEventListener('scroll', () => setShowProDropdown(false));
   }, []);
@@ -26,7 +26,7 @@ const Account = () => {
           <div className={styles.userProfile}>
             <div className={styles.userProfileWrap}>
               <img
-                src={profile}
+                src={user?.photoURL}
                 alt='profile image'
                 onClick={() => setShowProDropdown(!isShowProDropdown)}
               />
@@ -37,8 +37,8 @@ const Account = () => {
                 }}
               >
                 <div className={styles.userProfileInfo}>
-                  <h4>Julhash</h4>
-                  <p>Julhashahammenshimul</p>
+                  <h4>{user?.displayName}</h4>
+                  <p>{user?.email.slice(0, user?.email.indexOf('@'))}</p>
                 </div>
                 <div className={styles.userProfileDropdown}>
                   <img src={darkmode} alt='night mode icon' />

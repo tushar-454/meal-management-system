@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
@@ -14,6 +16,7 @@ import Input from '../UI/Input';
 import InputFile from '../UI/InputFile';
 
 const Signup = () => {
+  const { loginWithGoogle } = useContext(AuthContext);
   return (
     <section>
       <Container>
@@ -59,7 +62,11 @@ const Signup = () => {
           />
           <Button displayName={'Signup'} type={'submit'} />
           <Divider text={'Or'} />
-          <ButtonIco displayName={'Login with google'} icon={google} />
+          <ButtonIco
+            displayName={'Login with google'}
+            icon={google}
+            onClick={loginWithGoogle}
+          />
           <Info
             text={'You have already an account.'}
             linkText={'Login'}

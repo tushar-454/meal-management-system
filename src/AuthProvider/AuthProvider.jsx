@@ -2,6 +2,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
+  signOut,
 } from 'firebase/auth';
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from 'react';
@@ -19,18 +20,26 @@ const AuthProvider = ({ children }) => {
       .catch((error) => console.log(error.message));
   };
 
+  //logout account
+  const logOutAccount = () => {
+    signOut(Auth)
+      .then(() => console.log('Logout successfull'))
+      .catch((error) => console.log(error.message));
+  };
+
   useEffect(() => {
     const unsubscriber = onAuthStateChanged(Auth, (currentUser) => {
       if (currentUser) {
         console.log(currentUser);
         setUser(currentUser);
+      } else {
+        setUser(null);
       }
-      console.log(currentUser);
     });
     return () => unsubscriber();
   }, []);
 
-  const userInfo = { user, loginWithGoogle };
+  const userInfo = { user, loginWithGoogle, logOutAccount };
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

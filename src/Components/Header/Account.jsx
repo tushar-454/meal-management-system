@@ -12,7 +12,7 @@ import styles from './Account.module.css';
 const Account = () => {
   const [isShowProDropdown, setShowProDropdown] = useState(false);
   const { pathname } = useLocation();
-  const { user } = useContext(AuthContext);
+  const { user, logOutAccount } = useContext(AuthContext);
   useEffect(() => {
     window.addEventListener('scroll', () => setShowProDropdown(false));
   }, []);
@@ -44,7 +44,10 @@ const Account = () => {
                   <img src={darkmode} alt='night mode icon' />
                   <p>Darkmode</p>
                 </div>
-                <div className={styles.userProfileDropdown}>
+                <div
+                  className={styles.userProfileDropdown}
+                  onClick={logOutAccount}
+                >
                   <img src={signout} alt='night mode icon' />
                   <p>Signout</p>
                 </div>

@@ -10,7 +10,7 @@
   color: #d53054;
   text-decoration: none;
 }
-@media (max-width: 350px) {
+@media (max-width: 425px) {
   .info {
     font-size: 0.9rem;
   }

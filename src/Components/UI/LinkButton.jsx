@@ -4,7 +4,7 @@ import styles from './LinkButton.module.css';
 
 const LinkButton = ({ displayName, path, icon, ...rest }) => {
   return (
-    <Link to={path} className={styles.link}>
+    <Link to={path} className={styles.link} {...rest}>
       <span className={styles.button} {...rest}>
         <img src={icon} />
         {displayName}

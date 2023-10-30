@@ -21,7 +21,7 @@ const AddMoney = () => {
             icon={dat}
           />
           <Input
-            displayName={'To Whome'}
+            displayName={'To Whomever'}
             id={'whome'}
             type={'text'}
             icon={whome}
@@ -41,7 +41,7 @@ const AddMoney = () => {
             <thead>
               <tr>
                 <th>Date & Time</th>
-                <th>To Whome</th>
+                <th>To Whomever</th>
                 <th>Money</th>
                 <th>Status</th>
               </tr>

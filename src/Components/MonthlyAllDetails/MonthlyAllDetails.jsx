@@ -106,20 +106,34 @@ const MonthlyAllDetails = () => {
                 <th>60</th>
               </tr>
               <tr>
-                <th>Total Money</th>
-                <th colSpan={2}>20000</th>
-                <th colSpan={2}>Additional Cost</th>
-                <th colSpan={2}>600</th>
-                <th colSpan={2}>Total Meal</th>
-                <th>302</th>
+                <th style={{ backgroundColor: '#ffc107' }}>Total Money</th>
+                <th colSpan={2} style={{ backgroundColor: '#ffc107' }}>
+                  20000
+                </th>
+                <th colSpan={2} style={{ backgroundColor: '#ffff00' }}>
+                  Additional Cost
+                </th>
+                <th colSpan={2} style={{ backgroundColor: '#ffff00' }}>
+                  600
+                </th>
+                <th colSpan={2} style={{ backgroundColor: '#ff4155' }}>
+                  Total Meal
+                </th>
+                <th style={{ backgroundColor: '#ff4155' }}>302</th>
               </tr>
               <tr>
-                <th>Meal Rate</th>
-                <th colSpan={2}>43.3</th>
-                <th colSpan={3}>Additional Cost per student</th>
-                <th>120</th>
-                <th colSpan={2}>Cooking Bill</th>
-                <th>500</th>
+                <th style={{ backgroundColor: '#ff4155' }}>Meal Rate</th>
+                <th colSpan={2} style={{ backgroundColor: '#ff4155' }}>
+                  43.3
+                </th>
+                <th colSpan={3} style={{ backgroundColor: '#ffd000' }}>
+                  Additional Cost per student
+                </th>
+                <th style={{ backgroundColor: '#ffd000' }}>120</th>
+                <th colSpan={2} style={{ backgroundColor: '#00ff00' }}>
+                  Cooking Bill
+                </th>
+                <th style={{ backgroundColor: '#00ff00' }}>500</th>
               </tr>
               <tr>
                 <th>Per Student Total Cost</th>

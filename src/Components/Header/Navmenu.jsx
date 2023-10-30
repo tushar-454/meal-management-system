@@ -27,7 +27,7 @@ const navItems = [
   {
     id: 5,
     name: 'Monthly',
-    path: '/monthly',
+    path: '/monthly-all-details',
   },
 ];
 

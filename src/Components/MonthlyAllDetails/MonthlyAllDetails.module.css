@@ -1,6 +1,7 @@
 .tableWrap {
   overflow: auto;
   margin: 2rem 0;
+  position: relative;
 }
 .table {
   border-collapse: collapse;
@@ -12,6 +13,11 @@
 .table th {
   padding: 0.5rem;
   background-color: #cbd5e1;
+}
+.table tr.studentNameRow {
+  position: sticky;
+  top: 0;
+  width: 100%;
 }
 .table td {
   font-weight: 500;
@@ -33,4 +39,20 @@ td {
 }
 .odd {
   background-color: #cbd5e150;
+}
+@media (max-width: 768px) {
+  .todayMealWrap {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 568px) {
+  .todayMealWrap {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 375px) {
+  .todayMealWrap {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+  }
 }

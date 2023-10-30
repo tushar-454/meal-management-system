@@ -43,19 +43,3 @@ td {
 .odd {
   background-color: #cbd5e150;
 }
-@media (max-width: 768px) {
-  .todayMealWrap {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-}
-@media (max-width: 568px) {
-  .todayMealWrap {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-@media (max-width: 375px) {
-  .todayMealWrap {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-  }
-}

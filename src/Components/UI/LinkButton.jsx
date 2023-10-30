@@ -15,7 +15,7 @@ const LinkButton = ({ displayName, path, icon, ...rest }) => {
 
 LinkButton.propTypes = {
   displayName: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string,
   icon: PropTypes.node,
 };
 

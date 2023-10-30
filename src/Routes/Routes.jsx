@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AddMeal from '../Components/AddMeal/AddMeal';
+import AddMoney from '../Components/AddMoney/AddMoney';
 import ForgotPassword from '../Components/ForgotPassword/ForgotPassword';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
       {
         path: '/your-meal',
         element: <YourMeal />,
+      },
+      {
+        path: '/add-money',
+        element: <AddMoney />,
       },
     ],
   },

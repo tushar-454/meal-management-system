@@ -67,27 +67,33 @@ const YourMeal = () => {
         {/* indivisual current month list  */}
         <div className={styles.tableWrap}>
           <table border={'1'} className={styles.table}>
-            <tr>
-              <th>Date</th>
-              <th>Breakfast</th>
-              <th>Launch</th>
-              <th>Dinner</th>
-            </tr>
-            {mealMonthlyData.map((perday, index) => (
-              <tr
-                key={index}
-                className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
-              >
-                <td>01/01/2023</td>
-                <td>0.5</td>
-                <td>1.0</td>
-                <td>1.0</td>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Breakfast</th>
+                <th>Launch</th>
+                <th>Dinner</th>
               </tr>
-            ))}
-            <tr>
-              <th>Total</th>
-              <th colSpan={3}>0.5</th>
-            </tr>
+            </thead>
+            <tbody>
+              {mealMonthlyData.map((perday, index) => (
+                <tr
+                  key={index}
+                  className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
+                >
+                  <td>01/01/2023</td>
+                  <td>0.5</td>
+                  <td>1.0</td>
+                  <td>1.0</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                <th colSpan={3}>0.5</th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </Container>

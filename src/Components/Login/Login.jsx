@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
@@ -16,6 +16,17 @@ import Input from '../UI/Input';
 import styles from './Login.module.css';
 const Login = () => {
   const { loginWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const handleLoginWithGoogle = () => {
+    loginWithGoogle()
+      .then((currentUser) => {
+        navigate(state || '/');
+        console.log(currentUser.user);
+      })
+      .catch((error) => console.log(error.message));
+  };
   return (
     <section>
       <Container>
@@ -50,7 +61,7 @@ const Login = () => {
           <ButtonIco
             displayName={'Login with google'}
             icon={google}
-            onClick={loginWithGoogle}
+            onClick={handleLoginWithGoogle}
           />
           <Info
             text={'Don’t have an account.'}

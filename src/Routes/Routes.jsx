@@ -5,6 +5,7 @@ import ForgotPassword from '../Components/ForgotPassword/ForgotPassword';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
 import MonthlyAllDetails from '../Components/MonthlyAllDetails/MonthlyAllDetails';
+import PrivateRoutes from '../Components/PrivateRoutes/PrivateRoutes';
 import PublicRoutes from '../Components/PublicRoutes/PublicRoutes';
 import Signup from '../Components/Signup/Signup';
 import YourMeal from '../Components/YourMeal/YourMeal';
@@ -45,19 +46,35 @@ const routes = createBrowserRouter([
       },
       {
         path: '/add-meal',
-        element: <AddMeal />,
+        element: (
+          <PrivateRoutes>
+            <AddMeal />
+          </PrivateRoutes>
+        ),
       },
       {
         path: '/your-meal',
-        element: <YourMeal />,
+        element: (
+          <PrivateRoutes>
+            <YourMeal />
+          </PrivateRoutes>
+        ),
       },
       {
         path: '/add-money',
-        element: <AddMoney />,
+        element: (
+          <PrivateRoutes>
+            <AddMoney />
+          </PrivateRoutes>
+        ),
       },
       {
         path: '/monthly-all-details',
-        element: <MonthlyAllDetails />,
+        element: (
+          <PrivateRoutes>
+            <MonthlyAllDetails />
+          </PrivateRoutes>
+        ),
       },
     ],
   },

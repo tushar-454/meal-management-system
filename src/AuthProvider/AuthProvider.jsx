@@ -15,11 +15,7 @@ const AuthProvider = ({ children }) => {
   // login with google
   const loginWithGoogle = () => {
     setLoading(false);
-    signInWithPopup(Auth, new GoogleAuthProvider())
-      .then((currentUser) => {
-        console.log(currentUser.user);
-      })
-      .catch((error) => console.log(error.message));
+    return signInWithPopup(Auth, new GoogleAuthProvider());
   };
 
   //logout account

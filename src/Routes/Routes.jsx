@@ -4,6 +4,7 @@ import ForgotPassword from '../Components/ForgotPassword/ForgotPassword';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
 import Signup from '../Components/Signup/Signup';
+import YourMeal from '../Components/YourMeal/YourMeal';
 import Layout from './Layout';
 
 const routes = createBrowserRouter([
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
       {
         path: '/add-meal',
         element: <AddMeal />,
+      },
+      {
+        path: '/your-meal',
+        element: <YourMeal />,
       },
     ],
   },

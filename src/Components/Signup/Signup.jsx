@@ -26,29 +26,39 @@ const signupInit = {
   confirmPassword: '',
   terms: false,
 };
+const errorInit = {
+  name: '',
+  email: '',
+  photoUrl: '',
+  password: '',
+  confirmPassword: '',
+  terms: false,
+};
 
 const Signup = () => {
   const { loginWithGoogle, signupWithEmailPassword } = useContext(AuthContext);
   const navigate = useNavigate();
   const [signup, setSignup] = useState({ ...signupInit });
+  const [error, setError] = useState({ ...errorInit });
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
+    const newError = type === 'checkbox' ? checked : '';
     setSignup((prevObj) => ({ ...prevObj, [name]: newValue }));
+    setError((prevError) => ({ ...prevError, [name]: newError }));
   };
 
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
-    const { name, email, photoUrl, password, confirmPassword, terms } = signup;
-    const userSignupInfo = {
-      name,
-      email,
-      photoUrl,
-      password,
-      confirmPassword,
-      terms,
-    };
+    const { name, email, photoUrl, password, confirmPassword } = signup;
+    if (password !== confirmPassword) {
+      setError((prevError) => ({
+        ...prevError,
+        confirmPassword: 'Password not matched !',
+      }));
+      return;
+    }
     signupWithEmailPassword(email, password)
       .then((currentUser) => {
         updateProfile(Auth.currentUser, {
@@ -121,6 +131,7 @@ const Signup = () => {
             name={'confirmPassword'}
             onChange={handleInputChange}
             value={signup.confirmPassword}
+            error={error.confirmPassword}
             required
           />
           <Checkbox

@@ -4,7 +4,15 @@ import hide from '../../assets/icon/hide.png';
 import view from '../../assets/icon/view.png';
 import styles from './Input.module.css';
 
-const Input = ({ id, displayName, icon, type, isPassInput, ...rest }) => {
+const Input = ({
+  id,
+  displayName,
+  icon,
+  type,
+  isPassInput,
+  error,
+  ...rest
+}) => {
   const [isPassHide, setIsPassHide] = useState(false);
   return (
     <div className={styles.inputDiv}>
@@ -28,6 +36,7 @@ const Input = ({ id, displayName, icon, type, isPassInput, ...rest }) => {
           />
         )}
       </div>
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 };
@@ -37,6 +46,7 @@ Input.propTypes = {
   type: PropTypes.string,
   isPassInput: PropTypes.bool,
   displayName: PropTypes.string,
+  error: PropTypes.string,
   icon: PropTypes.node,
 };
 

@@ -56,7 +56,7 @@ const Home = () => {
         </div>
       </Container>
       {/* if user not verified email show this modal  */}
-      {user?.emailVerified || (
+      {user !== null && !user?.emailVerified && (
         <div className={styles.mailVerifyModal}>
           <h1>
             Your Email is not verified. Check your mail.{' '}

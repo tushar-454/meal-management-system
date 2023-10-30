@@ -1,0 +1,47 @@
+.userWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.notification > img {
+  width: 2rem;
+  cursor: pointer;
+}
+.userProfileWrap {
+  position: relative;
+}
+.userProfileWrap img {
+  width: 4rem;
+  cursor: pointer;
+}
+.userProfileDropdownWrap {
+  position: absolute;
+  top: 5.1rem;
+  right: 0;
+  background-color: #e2e8f0;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  transition: 0.2s;
+  transform-origin: top right;
+  transform: scale(0);
+}
+.userProfileInfo {
+  padding: 0.4rem;
+  border-bottom: 2px solid #f8fafc;
+}
+.userProfileDropdown {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  border-radius: 100px;
+  transition: 0.2s;
+}
+.userProfileDropdown:hover {
+  background-color: #cbd5e1;
+}
+.userProfileDropdown > img {
+  width: 2rem;
+}

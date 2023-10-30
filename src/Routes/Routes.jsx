@@ -5,6 +5,7 @@ import ForgotPassword from '../Components/ForgotPassword/ForgotPassword';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
 import MonthlyAllDetails from '../Components/MonthlyAllDetails/MonthlyAllDetails';
+import PublicRoutes from '../Components/PublicRoutes/PublicRoutes';
 import Signup from '../Components/Signup/Signup';
 import YourMeal from '../Components/YourMeal/YourMeal';
 import Layout from './Layout';
@@ -20,15 +21,27 @@ const routes = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: (
+          <PublicRoutes>
+            <Login />
+          </PublicRoutes>
+        ),
       },
       {
         path: '/signup',
-        element: <Signup />,
+        element: (
+          <PublicRoutes>
+            <Signup />
+          </PublicRoutes>
+        ),
       },
       {
         path: '/forgot-password',
-        element: <ForgotPassword />,
+        element: (
+          <PublicRoutes>
+            <ForgotPassword />
+          </PublicRoutes>
+        ),
       },
       {
         path: '/add-meal',

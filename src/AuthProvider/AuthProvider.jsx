@@ -1,5 +1,6 @@
 import {
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithPopup,
   signOut,
@@ -16,6 +17,11 @@ const AuthProvider = ({ children }) => {
   const loginWithGoogle = () => {
     setLoading(false);
     return signInWithPopup(Auth, new GoogleAuthProvider());
+  };
+
+  // signup or crate account with email and password
+  const signupWithEmailPassword = (email, password) => {
+    return createUserWithEmailAndPassword(Auth, email, password);
   };
 
   //logout account
@@ -40,7 +46,13 @@ const AuthProvider = ({ children }) => {
     return () => unsubscriber();
   }, []);
 
-  const userInfo = { user, loading, loginWithGoogle, logOutAccount };
+  const userInfo = {
+    user,
+    loading,
+    loginWithGoogle,
+    signupWithEmailPassword,
+    logOutAccount,
+  };
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

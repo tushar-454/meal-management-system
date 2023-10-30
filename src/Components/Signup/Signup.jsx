@@ -1,5 +1,8 @@
-import { useContext } from 'react';
+import { updateProfile } from 'firebase/auth';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
+import { Auth } from '../../Firebase/firebase-config';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
@@ -15,8 +18,49 @@ import Checkbox from '../UI/Checkbox';
 import Input from '../UI/Input';
 import InputFile from '../UI/InputFile';
 
+const signupInit = {
+  name: '',
+  email: '',
+  photoUrl: '',
+  password: '',
+  confirmPassword: '',
+  terms: false,
+};
+
 const Signup = () => {
-  const { loginWithGoogle } = useContext(AuthContext);
+  const { loginWithGoogle, signupWithEmailPassword } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [signup, setSignup] = useState({ ...signupInit });
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
+    setSignup((prevObj) => ({ ...prevObj, [name]: newValue }));
+  };
+
+  const handleSignUpSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, photoUrl, password, confirmPassword, terms } = signup;
+    const userSignupInfo = {
+      name,
+      email,
+      photoUrl,
+      password,
+      confirmPassword,
+      terms,
+    };
+    signupWithEmailPassword(email, password)
+      .then((currentUser) => {
+        updateProfile(Auth.currentUser, {
+          displayName: name,
+          photoURL: photoUrl,
+        });
+        console.log('Account create successfull', currentUser.user);
+        navigate('/');
+      })
+      .catch((error) => console.log(error.message));
+  };
+
   return (
     <section>
       <Container>
@@ -24,6 +68,7 @@ const Signup = () => {
           illustration={signupIllustration}
           title={'Signup'}
           isRowDirectionReverse={true}
+          handleSubmit={handleSignUpSubmit}
         >
           <Input
             displayName={'Name'}
@@ -31,6 +76,10 @@ const Signup = () => {
             icon={name}
             type={'text'}
             placeholder={'John Dou'}
+            name={'name'}
+            onChange={handleInputChange}
+            value={signup.name}
+            required
           />
           <Input
             displayName={'Email'}
@@ -38,8 +87,18 @@ const Signup = () => {
             icon={email}
             type={'email'}
             placeholder={'example@yeahoo.com'}
+            name={'email'}
+            onChange={handleInputChange}
+            value={signup.email}
+            required
           />
-          <InputFile displayName={'Upload your photo'} id={'photoUrl'} />
+          <InputFile
+            displayName={'Upload your photo'}
+            id={'photoUrl'}
+            name={'photoUrl'}
+            onChange={handleInputChange}
+            value={signup.photoUrl}
+          />
           <Input
             displayName={'Password'}
             id={'password'}
@@ -47,6 +106,10 @@ const Signup = () => {
             isPassInput={true}
             type={'password'}
             placeholder={'dfO(&*(%'}
+            name={'password'}
+            onChange={handleInputChange}
+            value={signup.password}
+            required
           />
           <Input
             displayName={'Confirm Password'}
@@ -55,10 +118,18 @@ const Signup = () => {
             isPassInput={true}
             type={'password'}
             placeholder={'dfO(&*(%'}
+            name={'confirmPassword'}
+            onChange={handleInputChange}
+            value={signup.confirmPassword}
+            required
           />
           <Checkbox
             displayName={'Accept our terms and condition.'}
             id={'terms'}
+            name={'terms'}
+            onChange={handleInputChange}
+            value={signup.terms}
+            required
           />
           <Button displayName={'Signup'} type={'submit'} />
           <Divider text={'Or'} />

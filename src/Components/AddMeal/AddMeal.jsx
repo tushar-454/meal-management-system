@@ -16,8 +16,9 @@ const AddMeal = () => {
             displayName={'Breackfast'}
             id={'breackfast'}
             type={'number'}
-            min={0.5}
+            min={0}
             step={0.5}
+            max={10}
             icon={breackfast}
             placeholder={'breackfast quentity'}
           />
@@ -25,8 +26,9 @@ const AddMeal = () => {
             displayName={'Launch'}
             id={'launch'}
             type={'number'}
-            min={0.5}
+            min={0}
             step={0.5}
+            max={10}
             icon={launch}
             placeholder={'launch quentity'}
           />
@@ -34,8 +36,9 @@ const AddMeal = () => {
             displayName={'Dinner'}
             id={'dinner'}
             type={'number'}
-            min={0.5}
+            min={0}
             step={0.5}
+            max={10}
             icon={dinner}
             placeholder={'dinner quentity'}
           />

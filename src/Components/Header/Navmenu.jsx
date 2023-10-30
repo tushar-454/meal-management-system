@@ -58,8 +58,14 @@ const Navmenu = () => {
       </div>
       <div className={`${styles.navItems} ${isCollapse && styles.collapse}`}>
         {navItems?.map((item) => (
-          <NavLink key={item.id} to={item.path} className={styles.navItem}>
-            {item.name}
+          <NavLink
+            key={item.id}
+            to={item.path}
+            className={`${styles.navItem} navItem`}
+          >
+            {({ isActive }) => (
+              <span className={isActive ? styles.active : ''}>{item.name}</span>
+            )}
           </NavLink>
         ))}
       </div>

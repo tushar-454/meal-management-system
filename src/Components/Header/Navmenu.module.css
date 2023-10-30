@@ -27,6 +27,11 @@
   transform: rotate(0deg);
 }
 
+.active {
+  font-weight: 800;
+  color: #3625a0;
+}
+
 @media (max-width: 1440px) {
   .navItem {
     font-size: 1rem;
@@ -65,6 +70,7 @@
   }
   .menuBar > img {
     width: 2.3rem;
+    cursor: pointer;
   }
 }
 

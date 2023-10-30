@@ -1,0 +1,51 @@
+.animationWrap {
+  display: flex;
+  justify-content: center;
+  margin: 7rem 0;
+}
+.animation {
+  width: 4rem;
+  height: 4rem;
+  background-color: #ff812e;
+  border-radius: 100px;
+  position: relative;
+}
+.animation:before {
+  content: '';
+  position: absolute;
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: #ff812e70;
+  left: -10%;
+  top: -10%;
+  /* transform: translate(-50%, -50%); */
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  border-radius: 100px;
+  animation: scaleup 0.7s infinite;
+}
+
+@keyframes scaleup {
+  0% {
+    transform-origin: center;
+    transform: scale(2) rotateZ(0deg);
+  }
+  50% {
+    transform-origin: center;
+    /* transform: rotate(180deg); */
+  }
+  100% {
+    transform-origin: center;
+    transform: scale(2) rotateZ(360deg);
+  }
+}

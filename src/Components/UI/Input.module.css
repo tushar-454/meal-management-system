@@ -1,5 +1,6 @@
 .inputDiv {
   margin: 1.5rem 0rem;
+  width: 100%;
 }
 .label {
   display: block;
@@ -19,6 +20,10 @@
   font-size: 1.1rem;
   padding: 1rem 1rem 1rem 3.1rem;
   border-radius: 0.3rem;
+  border: 1px solid transparent;
+}
+.input:focus {
+  border: 1px solid #424157;
 }
 .icon {
   width: 2rem;
@@ -32,4 +37,10 @@
   top: 10px;
   right: 9px;
   cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .inputDiv {
+    margin: 0.4rem 0rem;
+  }
 }

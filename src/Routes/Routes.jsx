@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import AddMeal from '../Components/AddMeal/AddMeal';
 import ForgotPassword from '../Components/ForgotPassword/ForgotPassword';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
       {
         path: '/forgot-password',
         element: <ForgotPassword />,
+      },
+      {
+        path: '/add-meal',
+        element: <AddMeal />,
       },
     ],
   },

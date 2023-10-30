@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 import breakfast from '../../assets/icon/breakfast.png';
 import dinner from '../../assets/icon/dinner.png';
 import dish from '../../assets/icon/dish.png';
@@ -12,7 +14,7 @@ import LinkButton from '../UI/LinkButton';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const isEmailVarified = true;
+  const { user } = useContext(AuthContext);
   return (
     <section>
       <Container>
@@ -54,7 +56,7 @@ const Home = () => {
         </div>
       </Container>
       {/* if user not verified email show this modal  */}
-      {isEmailVarified || (
+      {user?.emailVerified || (
         <div className={styles.mailVerifyModal}>
           <h1>
             Your Email is not verified. Check your mail.{' '}

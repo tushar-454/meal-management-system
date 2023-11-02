@@ -80,15 +80,15 @@ const MonthlyAllDetails = () => {
                   className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
                 >
                   <td>01/01/2023</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
-                  <td>{(Math.random() * 10).toFixed(1)}</td>
+                  <td>k</td>
+                  <td>s</td>
+                  <td>h</td>
+                  <td>t</td>
+                  <td>j</td>
+                  <td>a</td>
+                  <td>s</td>
+                  <td>c</td>
+                  <td>s</td>
                 </tr>
               ))}
             </tbody>

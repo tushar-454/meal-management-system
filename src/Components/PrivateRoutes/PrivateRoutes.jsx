@@ -10,15 +10,16 @@ const PrivateRoutes = ({ children }) => {
   if (loading) {
     return <Loader />;
   }
+
+  if (!user) {
+    return <Navigate to={'/login'} state={pathname} />;
+  }
   if (!user?.emailVerified) {
     return (
       <>
         <Navigate to={'/'} />
       </>
     );
-  }
-  if (!user) {
-    return <Navigate to={'/login'} state={pathname} />;
   }
   return children;
 };

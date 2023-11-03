@@ -15,6 +15,7 @@ const PrivateRoutes = ({ children }) => {
     return <Navigate to={'/login'} state={pathname} />;
   }
   if (!user?.emailVerified) {
+    console.log('Varify your mail');
     return (
       <>
         <Navigate to={'/'} />

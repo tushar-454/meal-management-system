@@ -14,7 +14,7 @@ import LinkButton from '../UI/LinkButton';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const { user } = useContext(AuthContext);
+  const { user, sendEmailVerifyMail } = useContext(AuthContext);
   return (
     <section>
       <Container>
@@ -64,6 +64,7 @@ const Home = () => {
               displayName={'Resend'}
               icon={resend}
               style={{ padding: '0.3rem 0.5rem', gap: '0.5rem' }}
+              onClick={sendEmailVerifyMail}
             />
           </h1>
         </div>

@@ -2,6 +2,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -39,6 +40,13 @@ const AuthProvider = ({ children }) => {
       .catch((error) => console.log(error.message));
   };
 
+  // send email varification mail
+  const sendEmailVerifyMail = () => {
+    sendEmailVerification(Auth.currentUser)
+      .then(() => console.log('Email verification send successfull'))
+      .catch((error) => console.log(error.message));
+  };
+
   useEffect(() => {
     const unsubscriber = onAuthStateChanged(Auth, (currentUser) => {
       if (currentUser) {
@@ -62,6 +70,7 @@ const AuthProvider = ({ children }) => {
     signupWithEmailPassword,
     loginWithEmailPass,
     logOutAccount,
+    sendEmailVerifyMail,
   };
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>

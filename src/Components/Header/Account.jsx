@@ -12,7 +12,7 @@ import styles from './Account.module.css';
 const Account = () => {
   const [isShowProDropdown, setShowProDropdown] = useState(false);
   const { pathname } = useLocation();
-  const { user, logOutAccount } = useContext(AuthContext);
+  const { user, logOutAccount, profilePhoto } = useContext(AuthContext);
   useEffect(() => {
     window.addEventListener('scroll', () => setShowProDropdown(false));
   }, []);
@@ -26,7 +26,7 @@ const Account = () => {
           <div className={styles.userProfile}>
             <div className={styles.userProfileWrap}>
               <img
-                src={user?.photoURL}
+                src={user?.photoURL || profilePhoto}
                 alt='profile image'
                 onClick={() => setShowProDropdown(!isShowProDropdown)}
               />

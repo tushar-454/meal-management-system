@@ -13,6 +13,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [profilePhoto, setProfilePhoto] = useState('');
 
   // login with google
   const loginWithGoogle = () => {
@@ -55,6 +56,8 @@ const AuthProvider = ({ children }) => {
   const userInfo = {
     user,
     loading,
+    profilePhoto,
+    setProfilePhoto,
     loginWithGoogle,
     signupWithEmailPassword,
     loginWithEmailPass,

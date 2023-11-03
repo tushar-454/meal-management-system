@@ -1,8 +1,9 @@
 import { updateProfile } from 'firebase/auth';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
-import { Auth } from '../../Firebase/firebase-config';
+import { Auth, storage } from '../../Firebase/firebase-config';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
@@ -44,11 +45,15 @@ const dynamicError = {
   length: false,
 };
 const Signup = () => {
-  const { loginWithGoogle, signupWithEmailPassword } = useContext(AuthContext);
+  const { loginWithGoogle, signupWithEmailPassword, setProfilePhoto } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [signup, setSignup] = useState({ ...signupInit });
   const [error, setError] = useState({ ...errorInit });
   const [isShow, setIsShow] = useState(false);
+  const [photoStatus, setPhotoStatus] = useState('');
+  const [path, setPath] = useState('');
+  const [file, setFile] = useState(null);
 
   //handle singup input change
   const handleInputChange = (e) => {
@@ -82,10 +87,42 @@ const Signup = () => {
       }
     }
   };
+  //handle photo file input change
+  const handlePhotoChange = (e) => {
+    const imageName = e.target.files[0].name;
+    const random = new Date().getTime();
+    const firebasePath = `images/${random}_${imageName}`;
+    setPhotoStatus(imageName);
+    setError((prev) => ({ ...prev, photoUrl: '' }));
+    setPath(firebasePath);
+    setFile(e.target.files[0]);
+  };
+  const handlePhotoUpload = () => {
+    setPhotoStatus('Uploading...');
+    const imagesRef = ref(storage, path);
+    uploadBytes(imagesRef, file)
+      .then(() => {
+        getDownloadURL(ref(storage, path))
+          .then((url) => {
+            updateProfile(Auth.currentUser, {
+              photoURL: url,
+            });
+            setProfilePhoto(url);
+            setSignup((prevObj) => ({ ...prevObj, photoUrl: url }));
+            setPhotoStatus('Completed.');
+          })
+          .catch((error) => {
+            console.log('Error was an occur', error.message, 'error');
+          });
+      })
+      .catch((error) => {
+        console.log('Error was an occur', error.message, 'error');
+      });
+  };
   // handle singup with email and password
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
-    const { name, email, photoUrl, password, confirmPassword } = signup;
+    const { name, email, photoUrl, password, confirmPassword, terms } = signup;
     if (!name) {
       setError((prevError) => ({
         ...prevError,
@@ -97,6 +134,13 @@ const Signup = () => {
       setError((prevError) => ({
         ...prevError,
         email: 'Email is required !',
+      }));
+      return;
+    }
+    if (photoStatus === '') {
+      setError((prevError) => ({
+        ...prevError,
+        photoUrl: 'Upload your Photo !',
       }));
       return;
     }
@@ -120,18 +164,23 @@ const Signup = () => {
       }));
       return;
     }
+    if (!terms) {
+      return;
+    }
+    // handle photo upload
     signupWithEmailPassword(email, password)
       .then((currentUser) => {
         updateProfile(Auth.currentUser, {
           displayName: name,
-          photoURL: photoUrl,
         });
+        if (!photoUrl) {
+          handlePhotoUpload();
+        }
         console.log('Account create successfull', currentUser.user);
         navigate('/');
       })
       .catch((error) => console.log(error.message));
   };
-
   return (
     <section>
       <Container>
@@ -150,7 +199,7 @@ const Signup = () => {
             name={'name'}
             onChange={handleInputChange}
             value={signup.name}
-            required
+            error={error.name}
           />
           <Input
             displayName={'Email'}
@@ -161,14 +210,16 @@ const Signup = () => {
             name={'email'}
             onChange={handleInputChange}
             value={signup.email}
-            required
+            error={error.email}
           />
           <InputFile
             displayName={'Upload your photo'}
             id={'photoUrl'}
             name={'photoUrl'}
-            onChange={handleInputChange}
-            value={signup.photoUrl}
+            onChange={handlePhotoChange}
+            photoStatus={photoStatus}
+            // value={signup.photoUrl}
+            error={error.photoUrl}
           />
           <Input
             displayName={'Password'}
@@ -180,7 +231,7 @@ const Signup = () => {
             name={'password'}
             onChange={handleInputChange}
             value={signup.password}
-            required
+            error={error.password}
           />
           <Input
             displayName={'Confirm Password'}
@@ -193,7 +244,6 @@ const Signup = () => {
             onChange={handleInputChange}
             value={signup.confirmPassword}
             error={error.confirmPassword}
-            required
           />
           {/* dynamicError show  */}
           <div className={`${styles.hide} ${isShow && styles.block}`}>
@@ -236,7 +286,6 @@ const Signup = () => {
             name={'terms'}
             onChange={handleInputChange}
             value={signup.terms}
-            required
           />
           <Button displayName={'Signup'} type={'submit'} />
           <Divider text={'Or'} />

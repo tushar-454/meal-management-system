@@ -16,4 +16,14 @@
   font-size: 1.1rem;
   padding: 1rem;
   border-radius: 0.3rem;
+  cursor: pointer;
+}
+.photoStatus {
+  color: #8d8d8d;
+  font-size: 14px;
+  text-align: center;
+}
+.error {
+  margin-top: 0.5rem;
+  color: red;
 }

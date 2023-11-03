@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+/* eslint-disable no-useless-escape */
+import { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import password from '../../assets/icon/cyber-security.png';
@@ -14,11 +15,49 @@ import Button from '../UI/Button';
 import Checkbox from '../UI/Checkbox';
 import Input from '../UI/Input';
 import styles from './Login.module.css';
+const loginInit = {
+  email: '',
+  password: '',
+};
+const errorInit = {
+  email: '',
+  password: '',
+};
 const Login = () => {
-  const { loginWithGoogle } = useContext(AuthContext);
+  const [login, setLogin] = useState({ ...loginInit });
+  const [error, setError] = useState({ ...errorInit });
+  const { loginWithGoogle, loginWithEmailPass } = useContext(AuthContext);
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  //handle input change in react way
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLogin((prevObj) => ({ ...prevObj, [name]: value }));
+    setError((prevObj) => ({ ...prevObj, [name]: '' }));
+  };
+
+  //handle login with email and password
+  const handleLoginEmailPass = (e) => {
+    e.preventDefault();
+    const { email, password } = login;
+    if (!email) {
+      setError((prevObj) => ({ ...prevObj, email: 'Email required !' }));
+      return;
+    }
+    if (!password) {
+      setError((prevObj) => ({ ...prevObj, password: 'Password required !' }));
+      return;
+    }
+    loginWithEmailPass(email, password)
+      .then((currentUser) => {
+        navigate(state || '/');
+        console.log(currentUser.user);
+      })
+      .catch((error) => console.log(error.message));
+  };
+
+  // handle login with google
   const handleLoginWithGoogle = () => {
     loginWithGoogle()
       .then((currentUser) => {
@@ -30,13 +69,21 @@ const Login = () => {
   return (
     <section>
       <Container>
-        <LogSignLay illustration={loginIllustration} title={'Login'}>
+        <LogSignLay
+          illustration={loginIllustration}
+          title={'Login'}
+          handleSubmit={handleLoginEmailPass}
+        >
           <Input
             displayName={'Email'}
             id={'email'}
             icon={email}
             type={'email'}
+            name={'email'}
             placeholder={'example@yeahoo.com'}
+            value={login.email}
+            onChange={handleInputChange}
+            error={error.email}
           />
           <Input
             isPassInput={true}
@@ -44,7 +91,11 @@ const Login = () => {
             id={'password'}
             icon={password}
             type={'password'}
+            name={'password'}
             placeholder={'dlfh459#$*J'}
+            value={login.password}
+            onChange={handleInputChange}
+            error={error.password}
           />
           <div className={styles.remforWrap}>
             <div>

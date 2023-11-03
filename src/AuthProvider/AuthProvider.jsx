@@ -2,6 +2,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
@@ -22,6 +23,11 @@ const AuthProvider = ({ children }) => {
   // signup or crate account with email and password
   const signupWithEmailPassword = (email, password) => {
     return createUserWithEmailAndPassword(Auth, email, password);
+  };
+
+  // signin account with email and password
+  const loginWithEmailPass = (email, password) => {
+    return signInWithEmailAndPassword(Auth, email, password);
   };
 
   //logout account
@@ -51,6 +57,7 @@ const AuthProvider = ({ children }) => {
     loading,
     loginWithGoogle,
     signupWithEmailPassword,
+    loginWithEmailPass,
     logOutAccount,
   };
   return (

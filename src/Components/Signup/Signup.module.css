@@ -1,0 +1,18 @@
+.hide {
+  display: none;
+}
+.block {
+  display: block;
+  margin-bottom: 1rem;
+}
+.errorLine {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.wrong {
+  color: red;
+}
+.right {
+  color: #00cc00;
+}

@@ -180,6 +180,15 @@ const Signup = () => {
       })
       .catch((error) => console.log(error.message));
   };
+  // handle login with google
+  const handleLoginWithGoogle = () => {
+    loginWithGoogle()
+      .then(() => {
+        navigate('/');
+        Toast('Login Successfull.', 'success');
+      })
+      .catch((error) => Toast(error.message, 'error'));
+  };
   return (
     <section>
       <Container>
@@ -291,7 +300,7 @@ const Signup = () => {
           <ButtonIco
             displayName={'Login with google'}
             icon={google}
-            onClick={loginWithGoogle}
+            onClick={handleLoginWithGoogle}
           />
           <Info
             text={'You have already an account.'}

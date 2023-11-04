@@ -3,6 +3,10 @@
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: #cccccc;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
   position: absolute;
   top: 8%;
   left: 50%;
@@ -10,7 +14,7 @@
   animation: showup 0.3s 1;
 }
 .message {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 @keyframes showup {

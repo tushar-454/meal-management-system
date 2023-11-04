@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from 'react';
 import { Auth } from '../Firebase/firebase-config';
+import Toast from '../Utils/Toast/Toast';
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -18,33 +19,36 @@ const AuthProvider = ({ children }) => {
 
   // login with google
   const loginWithGoogle = () => {
-    setLoading(false);
+    setLoading(true);
     return signInWithPopup(Auth, new GoogleAuthProvider());
   };
 
   // signup or crate account with email and password
   const signupWithEmailPassword = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(Auth, email, password);
   };
 
   // signin account with email and password
   const loginWithEmailPass = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(Auth, email, password);
   };
 
   //logout account
   const logOutAccount = () => {
-    setLoading(false);
+    setLoading(true);
     signOut(Auth)
-      .then(() => console.log('Logout successfull'))
-      .catch((error) => console.log(error.message));
+      .then(() => Toast('Logout successfull', 'success'))
+      .catch((error) => Toast(error.message, 'error'));
   };
 
   // send email varification mail
   const sendEmailVerifyMail = () => {
+    setLoading(true);
     sendEmailVerification(Auth.currentUser)
-      .then(() => console.log('Email verification send successfull'))
-      .catch((error) => console.log(error.message));
+      .then(() => Toast('Email verification send successfull', 'success'))
+      .catch((error) => Toast(error.message, 'error'));
   };
 
   useEffect(() => {

@@ -55,7 +55,7 @@ const Login = () => {
         navigate(state || '/');
         Toast('Login Successfull.', 'success');
       })
-      .catch((error) => Toast(error.message, 'error'));
+      .catch((error) => Toast(error.message, 'success'));
   };
 
   // handle login with google

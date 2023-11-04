@@ -2,6 +2,7 @@
 import { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
+import Toast from '../../Utils/Toast/Toast';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
@@ -50,21 +51,21 @@ const Login = () => {
       return;
     }
     loginWithEmailPass(email, password)
-      .then((currentUser) => {
+      .then(() => {
         navigate(state || '/');
-        console.log(currentUser.user);
+        Toast('Login Successfull.', 'success');
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => Toast(error.message, 'error'));
   };
 
   // handle login with google
   const handleLoginWithGoogle = () => {
     loginWithGoogle()
-      .then((currentUser) => {
+      .then(() => {
         navigate(state || '/');
-        console.log(currentUser.user);
+        Toast('Login Successfull.', 'success');
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => Toast(error.message, 'error'));
   };
   return (
     <section>

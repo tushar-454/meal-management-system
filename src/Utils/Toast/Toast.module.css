@@ -1,0 +1,56 @@
+.toast {
+  width: 300px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #cccccc;
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  animation: showup 0.3s 1;
+}
+.message {
+  font-size: 18px;
+  font-weight: 500;
+}
+@keyframes showup {
+  0% {
+    top: 0%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    top: 8%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes hide {
+  0% {
+    top: 8%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    top: 0%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.hideToast {
+  animation: hide 0.3s 1;
+}
+.success {
+  background-color: #00aa00;
+  color: #fff;
+}
+.error {
+  background-color: #ff0000;
+  color: #fff;
+}
+.info {
+  background-color: #35c6ff;
+  color: #fff;
+}
+.warning {
+  background-color: #ff7d66;
+  color: #fff;
+}

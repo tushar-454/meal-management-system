@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { Auth, storage } from '../../Firebase/firebase-config';
+import Toast from '../../Utils/Toast/Toast';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
@@ -111,13 +112,11 @@ const Signup = () => {
             setSignup((prevObj) => ({ ...prevObj, photoUrl: url }));
             setPhotoStatus('Completed.');
           })
-          .catch((error) => {
-            console.log('Error was an occur', error.message, 'error');
-          });
+
+          .catch((error) => Toast(error.message, 'error'));
       })
-      .catch((error) => {
-        console.log('Error was an occur', error.message, 'error');
-      });
+
+      .catch((error) => Toast(error.message, 'error'));
   };
   // handle singup with email and password
   const handleSignUpSubmit = (e) => {
@@ -169,14 +168,14 @@ const Signup = () => {
     }
     // handle photo upload
     signupWithEmailPassword(email, password)
-      .then((currentUser) => {
+      .then(() => {
         updateProfile(Auth.currentUser, {
           displayName: name,
         });
         if (!photoUrl) {
           handlePhotoUpload();
         }
-        console.log('Account create successfull', currentUser.user);
+        Toast('Account create successfull', 'success');
         navigate('/');
       })
       .catch((error) => console.log(error.message));

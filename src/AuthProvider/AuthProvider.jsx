@@ -19,25 +19,25 @@ const AuthProvider = ({ children }) => {
 
   // login with google
   const loginWithGoogle = () => {
-    setLoading(true);
+    setLoading(false);
     return signInWithPopup(Auth, new GoogleAuthProvider());
   };
 
   // signup or crate account with email and password
   const signupWithEmailPassword = (email, password) => {
-    setLoading(true);
+    setLoading(false);
     return createUserWithEmailAndPassword(Auth, email, password);
   };
 
   // signin account with email and password
   const loginWithEmailPass = (email, password) => {
-    setLoading(true);
+    setLoading(false);
     return signInWithEmailAndPassword(Auth, email, password);
   };
 
   //logout account
   const logOutAccount = () => {
-    setLoading(true);
+    setLoading(false);
     signOut(Auth)
       .then(() => Toast('Logout successfull', 'success'))
       .catch((error) => Toast(error.message, 'error'));
@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
 
   // send email varification mail
   const sendEmailVerifyMail = () => {
-    setLoading(true);
+    setLoading(false);
     sendEmailVerification(Auth.currentUser)
       .then(() => Toast('Email verification send successfull', 'success'))
       .catch((error) => Toast(error.message, 'error'));

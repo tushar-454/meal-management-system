@@ -7,6 +7,7 @@ import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
 import loginIllustration from '../../assets/login-illustration.png';
 import useAuth from '../../hooks/useAuth';
+import useAxios from '../../hooks/useAxios';
 import ButtonIco from '../Reusable/ButtonIco';
 import Container from '../Reusable/Container';
 import Divider from '../Reusable/Divider';
@@ -30,6 +31,7 @@ const Login = () => {
   const { loginWithGoogle, loginWithEmailPass } = useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const axios = useAxios();
 
   //handle input change in react way
   const handleInputChange = (e) => {
@@ -61,7 +63,20 @@ const Login = () => {
   // handle login with google
   const handleLoginWithGoogle = () => {
     loginWithGoogle()
-      .then(() => {
+      .then((currentUser) => {
+        const user = currentUser?.user;
+        axios.get(`/userInfo?email=${user.email}`).then((res) => {
+          if (res.data) return;
+          const userInfo = {
+            email: user.email,
+            role: ['user'],
+            accountStatus: 'pending',
+          };
+          axios.post('/userInfo', userInfo).then((res) => {
+            console.log(res.data);
+          });
+        });
+
         navigate(state || '/');
         Toast('Login Successfull.', 'success');
       })

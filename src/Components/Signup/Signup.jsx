@@ -12,6 +12,7 @@ import name from '../../assets/icon/user.png';
 import wrong from '../../assets/icon/wrong.png';
 import signupIllustration from '../../assets/sign_up.svg';
 import useAuth from '../../hooks/useAuth';
+import useAxios from '../../hooks/useAxios';
 import ButtonIco from '../Reusable/ButtonIco';
 import Container from '../Reusable/Container';
 import Divider from '../Reusable/Divider';
@@ -55,6 +56,7 @@ const Signup = () => {
   const [photoStatus, setPhotoStatus] = useState('');
   const [path, setPath] = useState('');
   const [file, setFile] = useState(null);
+  const axios = useAxios();
 
   //handle singup input change
   const handleInputChange = (e) => {
@@ -168,13 +170,22 @@ const Signup = () => {
     }
     // handle photo upload
     signupWithEmailPassword(email, password)
-      .then(() => {
+      .then((currentUser) => {
         updateProfile(Auth.currentUser, {
           displayName: name,
         });
         if (!photoUrl) {
           handlePhotoUpload();
         }
+        const user = currentUser?.user;
+        const userInfo = {
+          email: user.email,
+          role: ['user'],
+          accountStatus: 'pending',
+        };
+        axios.post('/userInfo', userInfo).then((res) => {
+          console.log(res.data);
+        });
         Toast('Account create successfull', 'success');
         navigate('/');
       })
@@ -183,7 +194,19 @@ const Signup = () => {
   // handle login with google
   const handleLoginWithGoogle = () => {
     loginWithGoogle()
-      .then(() => {
+      .then((currentUser) => {
+        const user = currentUser?.user;
+        axios.get(`/userInfo?email=${user.email}`).then((res) => {
+          if (res.data) return;
+          const userInfo = {
+            email: user.email,
+            role: ['user'],
+            accountStatus: 'pending',
+          };
+          axios.post('/userInfo', userInfo).then((res) => {
+            console.log(res.data);
+          });
+        });
         navigate('/');
         Toast('Login Successfull.', 'success');
       })

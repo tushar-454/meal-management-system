@@ -1,12 +1,12 @@
 /* eslint-disable no-useless-escape */
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
 import Toast from '../../Utils/Toast/Toast';
 import password from '../../assets/icon/cyber-security.png';
 import google from '../../assets/icon/google.png';
 import email from '../../assets/icon/internet.png';
 import loginIllustration from '../../assets/login-illustration.png';
+import useAuth from '../../hooks/useAuth';
 import ButtonIco from '../Reusable/ButtonIco';
 import Container from '../Reusable/Container';
 import Divider from '../Reusable/Divider';
@@ -27,7 +27,7 @@ const errorInit = {
 const Login = () => {
   const [login, setLogin] = useState({ ...loginInit });
   const [error, setError] = useState({ ...errorInit });
-  const { loginWithGoogle, loginWithEmailPass } = useContext(AuthContext);
+  const { loginWithGoogle, loginWithEmailPass } = useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
 

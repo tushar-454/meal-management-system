@@ -1,8 +1,7 @@
 import { updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
 import { Auth, storage } from '../../Firebase/firebase-config';
 import Toast from '../../Utils/Toast/Toast';
 import password from '../../assets/icon/cyber-security.png';
@@ -12,6 +11,7 @@ import right from '../../assets/icon/right.png';
 import name from '../../assets/icon/user.png';
 import wrong from '../../assets/icon/wrong.png';
 import signupIllustration from '../../assets/sign_up.svg';
+import useAuth from '../../hooks/useAuth';
 import ButtonIco from '../Reusable/ButtonIco';
 import Container from '../Reusable/Container';
 import Divider from '../Reusable/Divider';
@@ -47,7 +47,7 @@ const dynamicError = {
 };
 const Signup = () => {
   const { loginWithGoogle, signupWithEmailPassword, setProfilePhoto } =
-    useContext(AuthContext);
+    useAuth();
   const navigate = useNavigate();
   const [signup, setSignup] = useState({ ...signupInit });
   const [error, setError] = useState({ ...errorInit });

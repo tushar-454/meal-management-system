@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
 import breakfast from '../../assets/icon/breakfast.png';
 import dinner from '../../assets/icon/dinner.png';
 import dish from '../../assets/icon/dish.png';
@@ -8,13 +6,14 @@ import resend from '../../assets/icon/resend.png';
 import today from '../../assets/icon/timetable.png';
 import money from '../../assets/icon/wallet.png';
 import more from '../../assets/icon/zoom.png';
+import useAuth from '../../hooks/useAuth';
 import CardPill from '../Reusable/CardPill';
 import Container from '../Reusable/Container';
 import LinkButton from '../UI/LinkButton';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const { user, sendEmailVerifyMail } = useContext(AuthContext);
+  const { user, sendEmailVerifyMail } = useAuth();
   return (
     <section>
       <Container>

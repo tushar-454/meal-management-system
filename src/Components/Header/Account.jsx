@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
 import signup from '../../assets/icon/add-user.png';
 import login from '../../assets/icon/enter.png';
 import signout from '../../assets/icon/exit.png';
 import darkmode from '../../assets/icon/night-mode.png';
 import bellIco from '../../assets/icon/notification.png';
+import useAuth from '../../hooks/useAuth';
 import LinkButton from '../UI/LinkButton';
 import styles from './Account.module.css';
 
 const Account = () => {
   const [isShowProDropdown, setShowProDropdown] = useState(false);
   const { pathname } = useLocation();
-  const { user, logOutAccount, profilePhoto } = useContext(AuthContext);
+  const { user, logOutAccount, profilePhoto } = useAuth();
   useEffect(() => {
     window.addEventListener('scroll', () => setShowProDropdown(false));
   }, []);

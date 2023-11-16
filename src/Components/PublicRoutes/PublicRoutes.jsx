@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+import useAuth from '../../hooks/useAuth';
 import Loader from '../Loader/Loader';
 
 const PublicRoutes = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading } = useAuth();
   if (loading) {
     return <Loader />;
   }

@@ -65,9 +65,13 @@ const AddMeal = () => {
     if (!isUpdate) {
       axios
         .get(
-          `/user/all-meal?email=${
-            user.email
-          }&date=${new Date().toLocaleDateString()}`
+          `/user/all-meal?email=${user.email}&date=${
+            new Date().getHours() > 19
+              ? `${new Date().getMonth() + 1}/${
+                  new Date().getDate() + 1
+                }/${new Date().getFullYear()}`
+              : new Date().toLocaleDateString()
+          }`
         )
         .then((res) => {
           if (!res.data[0]?._id) {
@@ -97,9 +101,11 @@ const AddMeal = () => {
         updatedMealInfo
       )
       .then((res) => {
-        if (res.data[0].message) return Toast(res.data[0].message, 'info');
+        if (res.data[0].message) {
+          return Toast(res.data[0].message, 'info');
+        }
         if (res.data.modifiedCount > 0) {
-          Toast('Update successfully', 'success');
+          return Toast('Update successfully', 'success');
         }
       });
   };

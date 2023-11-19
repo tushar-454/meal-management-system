@@ -102,7 +102,10 @@ const AddMeal = () => {
       )
       .then((res) => {
         if (res.data[0].message) {
-          return Toast(res.data[0].message, 'info');
+          return Toast(
+            res.data[0].message,
+            res.data[0].message.includes('successfully') ? 'success' : 'info'
+          );
         }
         if (res.data.modifiedCount > 0) {
           return Toast('Update successfully', 'success');

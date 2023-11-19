@@ -42,21 +42,24 @@ const AddMeal = () => {
       date: `${date.getMonth() + 1}/${
         date.getDate() + 1
       }/${date.getFullYear()}`,
-      breackfast,
-      launch,
-      dinner,
+      breackfast: parseFloat(breackfast),
+      launch: parseFloat(launch),
+      dinner: parseFloat(dinner),
+      perDayTotal:
+        parseFloat(breackfast) + parseFloat(launch) + parseFloat(dinner),
     };
     // add new for next day meal
-    if (breackfast && launch && dinner && new Date().getHours() >= 20) {
+    if (breackfast && launch && dinner) {
       axios.post('/user/add-meal', mealInfoDate).then((res) => {
         if (res.data.insertedId) {
           return Toast('Successfully add meal data.', 'success');
         }
         Toast(res.data[0].message, 'info');
       });
-    } else {
-      Toast('Fillup all meal input box', 'info');
     }
+    //  else {
+    //   Toast('Fillup all meal input box', 'info');
+    // }
   };
 
   // handle submit action change -> it update or add meal
@@ -90,10 +93,13 @@ const AddMeal = () => {
   //handle update meal
   const handleUpdateMeal = (e) => {
     e.preventDefault();
+    const { breackfast, launch, dinner } = mealInfo;
     const updatedMealInfo = {
-      breackfast: mealInfo.breackfast,
-      launch: mealInfo.launch,
-      dinner: mealInfo.dinner,
+      breackfast: parseFloat(breackfast),
+      launch: parseFloat(launch),
+      dinner: parseFloat(dinner),
+      perDayTotal:
+        parseFloat(breackfast) + parseFloat(launch) + parseFloat(dinner),
     };
     axios
       .put(

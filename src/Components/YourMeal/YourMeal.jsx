@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import calculateTotalMeal from '../../Utils/CalculateTotal/CalculateTotal';
 import arrow from '../../assets/icon/arrow.svg';
 import breakfast from '../../assets/icon/breakfast.png';
 import dinner from '../../assets/icon/dinner.png';
@@ -105,7 +106,7 @@ const YourMeal = () => {
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th colSpan={3}>0.5</th>
+                <th colSpan={3}>{calculateTotalMeal(mealMonthlyData)}</th>
               </tr>
             </tfoot>
           </table>

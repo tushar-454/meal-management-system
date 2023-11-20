@@ -20,9 +20,9 @@ const Toast = (title, type) => {
     imagePath = warning;
   }
   const root = document.getElementById('root');
-  if (root.querySelector('.toast')) {
-    return;
-  }
+  // if (root.querySelector('.toast')) {
+  //   return;
+  // }
   const toast = document.createElement('div');
   toast.classList = `toast ${styles.toast} ${status}`;
   const text = document.createElement('p');

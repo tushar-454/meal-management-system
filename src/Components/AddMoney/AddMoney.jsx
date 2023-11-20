@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import Toast from '../../Utils/Toast/Toast';
 import whome from '../../assets/icon/payment.png';
@@ -20,10 +21,28 @@ const addMoneyInit = {
 
 const AddMoney = () => {
   const [addMoney, setAddMoney] = useState({ ...addMoneyInit });
+  const [total, setTotal] = useState(0);
   const axios = useAxios();
   const { user } = useAuth();
-  const moneyMonthlyData = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
-
+  const {
+    data: moneyMonthlyData,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ['moneyMonthlyData'],
+    queryFn: () =>
+      axios
+        .get(
+          `/user/all-money?email=${user.email}&month=${
+            new Date().getMonth() + 1
+          }/${new Date().getFullYear()}`
+        )
+        .then((res) => {
+          const totalMoney = res.data.reduce((cur, acc) => cur + acc.money, 0);
+          setTotal(totalMoney);
+          return res.data;
+        }),
+  });
   // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,6 +67,7 @@ const AddMoney = () => {
     axios.post('/user/add-money', addMoneyObj).then((res) => {
       if (res.data.insertedId) {
         Toast('Your Money added successfully', 'success');
+        refetch();
       }
     });
   };
@@ -102,22 +122,23 @@ const AddMoney = () => {
               </tr>
             </thead>
             <tbody>
-              {moneyMonthlyData.map((perpay, index) => (
-                <tr
-                  key={index}
-                  className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
-                >
-                  <td>01/01/2023 , 10:00:00 PM</td>
-                  <td>Helal Munshi</td>
-                  <td>1200</td>
-                  <td>Pending</td>
-                </tr>
-              ))}
+              {!isLoading &&
+                moneyMonthlyData.map((perpay, index) => (
+                  <tr
+                    key={index}
+                    className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
+                  >
+                    <td>{new Date(perpay.date).toLocaleString()}</td>
+                    <td>{perpay.toWhome}</td>
+                    <td>{perpay.money}</td>
+                    <td>{perpay.status}</td>
+                  </tr>
+                ))}
             </tbody>
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th colSpan={3}>0.5</th>
+                <th colSpan={3}>{total}</th>
               </tr>
             </tfoot>
           </table>

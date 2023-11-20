@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import breakfast from '../../assets/icon/breakfast.png';
 import dinner from '../../assets/icon/dinner.png';
 import dish from '../../assets/icon/dish.png';
@@ -7,6 +8,7 @@ import today from '../../assets/icon/timetable.png';
 import money from '../../assets/icon/wallet.png';
 import more from '../../assets/icon/zoom.png';
 import useAuth from '../../hooks/useAuth';
+import useAxios from '../../hooks/useAxios';
 import CardPill from '../Reusable/CardPill';
 import Container from '../Reusable/Container';
 import LinkButton from '../UI/LinkButton';
@@ -14,16 +16,53 @@ import styles from './Home.module.css';
 
 const Home = () => {
   const { user, sendEmailVerifyMail } = useAuth();
+  const axios = useAxios();
+  const {
+    data: todaysMeal = {},
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['homeTodayMeal'],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/user/all-meal?email=${
+          user.email
+        }&date=${new Date().toLocaleDateString()}`
+      );
+      return res.data[0];
+    },
+  });
   return (
     <section>
       <Container>
         <div className={styles.homeContentWrap}>
           <div className={styles.mealCard}>
-            <CardPill icon={today} title={'Today Meal'} quentity={2.5} />
+            <CardPill
+              icon={today}
+              title={'Today Meal'}
+              quentity={
+                isLoading ? '...' : isError ? '0' : todaysMeal?.perDayTotal
+              }
+            />
             <div className={styles.mealCardTodayQuentity}>
-              <LinkButton displayName={'0.5'} icon={breakfast} />
-              <LinkButton displayName={'1.0'} icon={launch} />
-              <LinkButton displayName={'1.0'} icon={dinner} />
+              <LinkButton
+                displayName={
+                  isLoading ? '...' : isError ? '0' : todaysMeal?.breackfast
+                }
+                icon={breakfast}
+              />
+              <LinkButton
+                displayName={
+                  isLoading ? '...' : isError ? '0' : todaysMeal?.launch
+                }
+                icon={launch}
+              />
+              <LinkButton
+                displayName={
+                  isLoading ? '...' : isError ? '0' : todaysMeal?.dinner
+                }
+                icon={dinner}
+              />
             </div>
             <LinkButton
               displayName={'View More'}

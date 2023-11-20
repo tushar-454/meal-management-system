@@ -33,7 +33,6 @@ const YourMeal = () => {
       return res.data;
     },
   });
-
   return (
     <section>
       <Container>

@@ -57,9 +57,6 @@ const AddMeal = () => {
         Toast(res.data[0].message, 'info');
       });
     }
-    //  else {
-    //   Toast('Fillup all meal input box', 'info');
-    // }
   };
 
   // handle submit action change -> it update or add meal

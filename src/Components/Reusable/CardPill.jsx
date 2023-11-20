@@ -20,7 +20,7 @@ const CardPill = ({ icon, title, quentity }) => {
 CardPill.propTypes = {
   icon: PropTypes.node,
   title: PropTypes.string,
-  quentity: PropTypes.number,
+  quentity: PropTypes.any,
 };
 
 export default CardPill;

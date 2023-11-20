@@ -42,6 +42,7 @@ const AddMoney = () => {
     }
     const addMoneyObj = {
       ...addMoney,
+      money: parseFloat(money),
       email: user?.email,
     };
     axios.post('/user/add-money', addMoneyObj).then((res) => {

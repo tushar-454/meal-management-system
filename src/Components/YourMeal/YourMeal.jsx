@@ -1,38 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import calculateTotalMeal from '../../Utils/CalculateTotal/CalculateTotal';
 import arrow from '../../assets/icon/arrow.svg';
 import breakfast from '../../assets/icon/breakfast.png';
 import dinner from '../../assets/icon/dinner.png';
 import launch from '../../assets/icon/lunch.png';
 import today from '../../assets/icon/only-today.png';
-import useAuth from '../../hooks/useAuth';
-import useAxios from '../../hooks/useAxios';
+import useTodayMeal from '../../hooks/useTodayMeal';
+import useUserMonthyMeal from '../../hooks/useUserMonthyMeal';
 import Container from '../Reusable/Container';
 import PageTitle from '../Reusable/PageTitle';
 import LinkButton from '../UI/LinkButton';
 import styles from './YourMeal.module.css';
 
 const YourMeal = () => {
-  const axios = useAxios();
-  const { user } = useAuth();
-  const { data: todayMeal, isLoading } = useQuery({
-    queryKey: ['todayMeal'],
-    queryFn: async () => {
-      const res = await axios.get(
-        `/user/all-meal?email=${
-          user.email
-        }&date=${new Date().toLocaleDateString()}`
-      );
-      return res.data;
-    },
-  });
-  const { data: mealMonthlyData } = useQuery({
-    queryKey: ['mealMonthlyData'],
-    queryFn: async () => {
-      const res = await axios.get(`/user/all-meal?email=${user.email}`);
-      return res.data;
-    },
-  });
+  const { todaysMeal: todayMeal, isLoading } = useTodayMeal();
+  const { mealMonthlyData, mealMonthlyDataLoading, userTotalMeal } =
+    useUserMonthyMeal();
   return (
     <section>
       <Container>
@@ -82,7 +63,7 @@ const YourMeal = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading ? (
+              {mealMonthlyDataLoading ? (
                 <></>
               ) : (
                 <>
@@ -105,7 +86,7 @@ const YourMeal = () => {
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th colSpan={3}>{calculateTotalMeal(mealMonthlyData)}</th>
+                <th colSpan={3}>{userTotalMeal}</th>
               </tr>
             </tfoot>
           </table>

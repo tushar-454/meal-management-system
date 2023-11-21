@@ -183,9 +183,7 @@ const Signup = () => {
           role: ['user'],
           accountStatus: 'pending',
         };
-        axios.post('/userInfo', userInfo).then((res) => {
-          console.log(res.data);
-        });
+        axios.post('/userInfo', userInfo).then(() => {});
         Toast('Account create successfull', 'success');
         navigate('/');
       })
@@ -203,9 +201,7 @@ const Signup = () => {
             role: ['user'],
             accountStatus: 'pending',
           };
-          axios.post('/userInfo', userInfo).then((res) => {
-            console.log(res.data);
-          });
+          axios.post('/userInfo', userInfo).then(() => {});
         });
         navigate('/');
         Toast('Login Successfull.', 'success');

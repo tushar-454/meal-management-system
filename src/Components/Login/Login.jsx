@@ -72,9 +72,7 @@ const Login = () => {
             role: ['user'],
             accountStatus: 'pending',
           };
-          axios.post('/userInfo', userInfo).then((res) => {
-            console.log(res.data);
-          });
+          axios.post('/userInfo', userInfo).then(() => {});
         });
 
         navigate(state || '/');

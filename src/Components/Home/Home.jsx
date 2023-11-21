@@ -7,6 +7,7 @@ import resend from '../../assets/icon/resend.png';
 import today from '../../assets/icon/timetable.png';
 import money from '../../assets/icon/wallet.png';
 import more from '../../assets/icon/zoom.png';
+import useAddMoney from '../../hooks/useAddMoney';
 import useAuth from '../../hooks/useAuth';
 import useAxios from '../../hooks/useAxios';
 import CardPill from '../Reusable/CardPill';
@@ -17,6 +18,7 @@ import styles from './Home.module.css';
 const Home = () => {
   const { user, sendEmailVerifyMail } = useAuth();
   const axios = useAxios();
+  const { total, isLoading: loadTotalMoney } = useAddMoney();
   const {
     data: todaysMeal = {},
     isLoading,
@@ -77,7 +79,11 @@ const Home = () => {
             />
           </div>
           <div className={styles.moneyCard}>
-            <CardPill icon={money} title={'Total Money'} quentity={2050} />
+            <CardPill
+              icon={money}
+              title={'Total Money'}
+              quentity={loadTotalMoney ? 0 : total}
+            />
             <CardPill icon={dish} title={'Total Dish'} quentity={205} />
             <LinkButton
               displayName={'View More'}

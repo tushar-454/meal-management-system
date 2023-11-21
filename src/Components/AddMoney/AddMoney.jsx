@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import Toast from '../../Utils/Toast/Toast';
 import whome from '../../assets/icon/payment.png';
 import dat from '../../assets/icon/timetable.png';
 import money from '../../assets/icon/wallet.png';
+import useAddMoney from '../../hooks/useAddMoney';
 import useAuth from '../../hooks/useAuth';
 import useAxios from '../../hooks/useAxios';
 import Container from '../Reusable/Container';
@@ -21,28 +21,10 @@ const addMoneyInit = {
 
 const AddMoney = () => {
   const [addMoney, setAddMoney] = useState({ ...addMoneyInit });
-  const [total, setTotal] = useState(0);
   const axios = useAxios();
   const { user } = useAuth();
-  const {
-    data: moneyMonthlyData,
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ['moneyMonthlyData'],
-    queryFn: () =>
-      axios
-        .get(
-          `/user/all-money?email=${user.email}&month=${
-            new Date().getMonth() + 1
-          }/${new Date().getFullYear()}`
-        )
-        .then((res) => {
-          const totalMoney = res.data.reduce((cur, acc) => cur + acc.money, 0);
-          setTotal(totalMoney);
-          return res.data;
-        }),
-  });
+  const { moneyMonthlyData, isLoading, refetch, total } = useAddMoney();
+
   // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;

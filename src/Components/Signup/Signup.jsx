@@ -121,7 +121,7 @@ const Signup = () => {
       .catch((error) => Toast(error.message, 'error'));
   };
   // handle singup with email and password
-  const handleSignUpSubmit = (e) => {
+  const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     const { name, email, photoUrl, password, confirmPassword, terms } = signup;
     if (!name) {
@@ -169,25 +169,28 @@ const Signup = () => {
       return;
     }
     // handle photo upload
-    signupWithEmailPassword(email, password)
-      .then((currentUser) => {
-        updateProfile(Auth.currentUser, {
-          displayName: name,
-        });
-        if (!photoUrl) {
-          handlePhotoUpload();
-        }
-        const user = currentUser?.user;
-        const userInfo = {
-          email: user.email,
-          role: ['user'],
-          accountStatus: 'pending',
-        };
-        axios.post('/userInfo', userInfo).then(() => {});
-        Toast('Account create successfull', 'success');
-        navigate('/');
-      })
-      .catch((error) => console.log(error.message));
+    try {
+      const signupRes = await signupWithEmailPassword(email, password);
+      const currentUser = await signupRes.user;
+      await updateProfile(currentUser, {
+        displayName: name,
+      });
+      if (!photoUrl) {
+        handlePhotoUpload();
+      }
+      const userInfo = {
+        name: currentUser.displayName,
+        email: currentUser.email,
+        role: ['user'],
+        accountStatus: 'pending',
+      };
+      console.log(userInfo);
+      axios.post('/userInfo', userInfo).then(() => {});
+      Toast('Account create successfull', 'success');
+      navigate('/');
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   // handle login with google
   const handleLoginWithGoogle = () => {
@@ -197,6 +200,7 @@ const Signup = () => {
         axios.get(`/userInfo?email=${user.email}`).then((res) => {
           if (res.data) return;
           const userInfo = {
+            name: user.displayName,
             email: user.email,
             role: ['user'],
             accountStatus: 'pending',

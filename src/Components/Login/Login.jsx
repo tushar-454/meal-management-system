@@ -66,8 +66,11 @@ const Login = () => {
       .then((currentUser) => {
         const user = currentUser?.user;
         axios.get(`/userInfo?email=${user.email}`).then((res) => {
-          if (res.data) return;
+          if (res.data.length > 0) {
+            return;
+          }
           const userInfo = {
+            name: user.displayName,
             email: user.email,
             role: ['user'],
             accountStatus: 'pending',

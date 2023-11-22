@@ -1,8 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
+import GetMonth from '../../Utils/GetMonth/GetMonth';
+import useAxios from '../../hooks/useAxios';
 import Container from '../Reusable/Container';
 import PageTitle from '../Reusable/PageTitle';
 import styles from './MonthlyAllDetails.module.css';
 
 const MonthlyAllDetails = () => {
+  const axios = useAxios();
   const allStudentMonthyData = [
     {},
     {},
@@ -44,23 +48,21 @@ const MonthlyAllDetails = () => {
     {},
     {},
   ];
-  const exisingStudents = [
-    'Kalam',
-    'Sajib',
-    'Helal',
-    'Tushar',
-    'Julhas',
-    'Asif',
-    'Shuzzol',
-    'Chandan',
-    'Shishir',
-  ];
+  const { data: existingStudents } = useQuery({
+    queryKey: ['existingStudents'],
+    queryFn: async () => {
+      const res = await axios.get(`/userInfo?accountStatus=active`);
+      const activeUserName = res?.data?.map((user) => user.name);
+      return activeUserName;
+    },
+  });
+
   return (
     <section>
       <Container>
         <PageTitle>
-          <abbr title={'Manager was Helel Munshi'}>Octobar</abbr> Month Full
-          Details
+          <abbr title={'Manager is Helel Munshi'}>{GetMonth(new Date())}</abbr>{' '}
+          Month Full Details
         </PageTitle>
         {/* indivisual current month list  */}
         <div className={styles.tableWrap}>
@@ -68,13 +70,13 @@ const MonthlyAllDetails = () => {
             <thead>
               <tr className={styles.studentNameRow}>
                 <th>Date</th>
-                {exisingStudents.map((student, index) => (
+                {existingStudents?.map((student, index) => (
                   <th key={index}>{student}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {allStudentMonthyData.map((perday, index) => (
+              {allStudentMonthyData?.map((perday, index) => (
                 <tr
                   key={index}
                   className={(index + 1) % 2 === 0 ? styles.even : styles.odd}

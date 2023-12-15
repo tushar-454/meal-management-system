@@ -33,7 +33,7 @@ const Home = () => {
                   ? '...'
                   : isError
                   ? '0'
-                  : todaysMeal.oneMealByEmailDate[0].perDayTotal
+                  : todaysMeal?.oneMealByEmailDate[0]?.perDayTotal || 0
               }
             />
             <div className={styles.mealCardTodayQuentity}>
@@ -43,7 +43,7 @@ const Home = () => {
                     ? '...'
                     : isError
                     ? '0'
-                    : todaysMeal.oneMealByEmailDate[0].breackfast
+                    : todaysMeal?.oneMealByEmailDate[0]?.breackfast || 0
                 }
                 icon={breakfast}
               />
@@ -53,7 +53,7 @@ const Home = () => {
                     ? '...'
                     : isError
                     ? '0'
-                    : todaysMeal.oneMealByEmailDate[0].launch
+                    : todaysMeal?.oneMealByEmailDate[0]?.launch || 0
                 }
                 icon={launch}
               />
@@ -63,7 +63,7 @@ const Home = () => {
                     ? '...'
                     : isError
                     ? '0'
-                    : todaysMeal.oneMealByEmailDate[0].dinner
+                    : todaysMeal?.oneMealByEmailDate[0]?.dinner || 0
                 }
                 icon={dinner}
               />
@@ -89,13 +89,15 @@ const Home = () => {
                   ? '...'
                   : errormoneyMonthlyData
                   ? 0
-                  : moneyMonthlyData.totalMoney
+                  : moneyMonthlyData?.totalMoney || 0
               }
             />
             <CardPill
               icon={dish}
               title={'Total Dish'}
-              quentity={isLoading ? '...' : isError ? 0 : todaysMeal.totalMeal}
+              quentity={
+                isLoading ? '...' : isError ? 0 : todaysMeal?.totalMeal || 0
+              }
             />
             <LinkButton
               displayName={'View More'}

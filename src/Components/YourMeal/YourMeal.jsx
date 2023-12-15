@@ -30,7 +30,7 @@ const YourMeal = () => {
                 ? '...'
                 : isError
                 ? 0
-                : todaysMeal?.oneMealByEmailDate[0]?.breackfast
+                : todaysMeal?.oneMealByEmailDate[0]?.breackfast || 0
             }
             icon={breakfast}
           />
@@ -43,7 +43,7 @@ const YourMeal = () => {
                 ? '...'
                 : isError
                 ? 0
-                : todaysMeal?.oneMealByEmailDate[0]?.launch
+                : todaysMeal?.oneMealByEmailDate[0]?.launch || 0
             }
             icon={launch}
           />
@@ -56,7 +56,7 @@ const YourMeal = () => {
                 ? '...'
                 : isError
                 ? 0
-                : todaysMeal?.oneMealByEmailDate[0]?.dinner
+                : todaysMeal?.oneMealByEmailDate[0]?.dinner || 0
             }
             icon={dinner}
           />
@@ -111,7 +111,7 @@ const YourMeal = () => {
                     ? '...'
                     : mealMonthlyDataError
                     ? 0
-                    : mealMonthlyData?.curTotalMeal}
+                    : mealMonthlyData?.curTotalMeal || 0}
                 </th>
               </tr>
             </tfoot>

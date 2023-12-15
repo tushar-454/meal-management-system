@@ -82,6 +82,9 @@ const AddMeal = () => {
         .then((res) => {
           if (!res.data.oneMealByEmailDate[0]?._id) {
             setIsUpdate(false);
+            if (curDate.getHours() > 19 && curDate.getHours() <= 23) {
+              return Toast('Add next day meal first.', 'info');
+            }
             return Toast(
               'Please Contact with Manager Or Admin for add your todays meal.',
               'info'
@@ -129,7 +132,9 @@ const AddMeal = () => {
             <LinkButton
               displayName={'Update Meal'}
               icon={updated}
-              style={{ background: isUpdate && '#FDD9D9' }}
+              style={{
+                background: isUpdate && '#FDD9D9',
+              }}
             />
           </div>
         )}

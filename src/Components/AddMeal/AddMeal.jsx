@@ -50,39 +50,44 @@ const AddMeal = () => {
     };
     // add new for next day meal
     if (breackfast && launch && dinner) {
-      axios.post('/user/add-meal', mealInfoDate).then((res) => {
-        if (res.data.insertedId) {
-          return Toast('Successfully add meal data.', 'success');
-        }
-        Toast(res.data[0].message, 'info');
-      });
+      axios
+        .post('/user/add-meal', mealInfoDate)
+        .then((res) => {
+          if (res.data.message === 'success') {
+            return Toast('Successfully add meal data.', 'success');
+          }
+        })
+        .catch((error) => {
+          return Toast(error.response.data.message, 'error');
+        });
     }
   };
 
   // handle submit action change -> it update or add meal
   const handleSubmitActionChange = () => {
     setIsUpdate(!isUpdate);
+    const curDate = new Date();
     if (!isUpdate) {
       axios
         .get(
           `/user/all-meal?email=${user.email}&date=${
-            new Date().getHours() > 19
-              ? `${new Date().getMonth() + 1}/${
-                  new Date().getDate() + 1
-                }/${new Date().getFullYear()}`
-              : new Date().toLocaleDateString()
+            curDate.getHours() > 19
+              ? `${curDate.getMonth() + 1}/${
+                  curDate.getDate() + 1
+                }/${curDate.getFullYear()}`
+              : curDate.toLocaleDateString()
           }`
         )
         .then((res) => {
-          if (!res.data[0]?._id) {
+          if (!res.data.oneMealByEmailDate[0]?._id) {
             setIsUpdate(false);
             return Toast(
               'Please Contact with Manager Or Admin for add your todays meal.',
               'info'
             );
           }
-          setCurMealId(res.data[0]?._id);
-          setMealInfo({ ...res.data[0] });
+          setCurMealId(res.data.oneMealByEmailDate[0]?._id);
+          setMealInfo({ ...res.data.oneMealByEmailDate[0] });
         });
     }
   };
@@ -99,20 +104,14 @@ const AddMeal = () => {
         parseFloat(breackfast) + parseFloat(launch) + parseFloat(dinner),
     };
     axios
-      .put(
-        `/user/update-meal?id=${curMealId}&email=${user.email}`,
-        updatedMealInfo
-      )
+      .put(`/user/update-meal?id=${curMealId}`, updatedMealInfo)
       .then((res) => {
-        if (res.data[0].message) {
-          return Toast(
-            res.data[0].message,
-            res.data[0].message.includes('successfully') ? 'success' : 'info'
-          );
-        }
-        if (res.data.modifiedCount > 0) {
+        if (res.data.message) {
           return Toast('Update successfully', 'success');
         }
+      })
+      .catch(() => {
+        return Toast('There was an error', 'error');
       });
   };
 
@@ -145,7 +144,7 @@ const AddMeal = () => {
             name={'breackfast'}
             onChange={handleInputChange}
             value={mealInfo.breackfast}
-            disabled={new Date().getHours() > 5 && new Date().getHours() < 20}
+            // disabled={new Date().getHours() > 5 && new Date().getHours() < 20}
           />
           <Input
             displayName={'Launch'}
@@ -159,7 +158,7 @@ const AddMeal = () => {
             name={'launch'}
             onChange={handleInputChange}
             value={mealInfo.launch}
-            disabled={new Date().getHours() > 5 && new Date().getHours() < 20}
+            // disabled={new Date().getHours() > 5 && new Date().getHours() < 20}
           />
           <Input
             displayName={'Dinner'}
@@ -173,7 +172,7 @@ const AddMeal = () => {
             name={'dinner'}
             onChange={handleInputChange}
             value={mealInfo.dinner}
-            disabled={new Date().getHours() > 14 && new Date().getHours() < 20}
+            // disabled={new Date().getHours() > 14 && new Date().getHours() < 20}
           />
         </MealFormLay>
       </Container>

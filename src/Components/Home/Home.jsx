@@ -6,10 +6,9 @@ import resend from '../../assets/icon/resend.png';
 import today from '../../assets/icon/timetable.png';
 import money from '../../assets/icon/wallet.png';
 import more from '../../assets/icon/zoom.png';
-import useAddMoney from '../../hooks/useAddMoney';
 import useAuth from '../../hooks/useAuth';
+import useGetMoney from '../../hooks/useGetMoney';
 import useTodayMeal from '../../hooks/useTodayMeal';
-import useUserMonthyMeal from '../../hooks/useUserMonthyMeal';
 import CardPill from '../Reusable/CardPill';
 import Container from '../Reusable/Container';
 import LinkButton from '../UI/LinkButton';
@@ -18,8 +17,8 @@ import styles from './Home.module.css';
 const Home = () => {
   const { user, sendEmailVerifyMail } = useAuth();
   const { todaysMeal, isLoading, isError } = useTodayMeal();
-  const { total, isLoading: loadTotalMoney } = useAddMoney();
-  const { mealMonthlyDataLoading, userTotalMeal } = useUserMonthyMeal();
+  const { moneyMonthlyData, loadmoneyMonthlyData, errormoneyMonthlyData } =
+    useGetMoney();
 
   return (
     <section>
@@ -30,25 +29,41 @@ const Home = () => {
               icon={today}
               title={'Today Meal'}
               quentity={
-                isLoading ? '...' : isError ? '0' : todaysMeal[0]?.perDayTotal
+                isLoading
+                  ? '...'
+                  : isError
+                  ? '0'
+                  : todaysMeal.oneMealByEmailDate[0].perDayTotal
               }
             />
             <div className={styles.mealCardTodayQuentity}>
               <LinkButton
                 displayName={
-                  isLoading ? '...' : isError ? '0' : todaysMeal[0]?.breackfast
+                  isLoading
+                    ? '...'
+                    : isError
+                    ? '0'
+                    : todaysMeal.oneMealByEmailDate[0].breackfast
                 }
                 icon={breakfast}
               />
               <LinkButton
                 displayName={
-                  isLoading ? '...' : isError ? '0' : todaysMeal[0]?.launch
+                  isLoading
+                    ? '...'
+                    : isError
+                    ? '0'
+                    : todaysMeal.oneMealByEmailDate[0].launch
                 }
                 icon={launch}
               />
               <LinkButton
                 displayName={
-                  isLoading ? '...' : isError ? '0' : todaysMeal[0]?.dinner
+                  isLoading
+                    ? '...'
+                    : isError
+                    ? '0'
+                    : todaysMeal.oneMealByEmailDate[0].dinner
                 }
                 icon={dinner}
               />
@@ -69,12 +84,18 @@ const Home = () => {
             <CardPill
               icon={money}
               title={'Total Money'}
-              quentity={loadTotalMoney ? 0 : total}
+              quentity={
+                loadmoneyMonthlyData
+                  ? '...'
+                  : errormoneyMonthlyData
+                  ? 0
+                  : moneyMonthlyData.totalMoney
+              }
             />
             <CardPill
               icon={dish}
               title={'Total Dish'}
-              quentity={mealMonthlyDataLoading ? 0 : userTotalMeal}
+              quentity={isLoading ? '...' : isError ? 0 : todaysMeal.totalMeal}
             />
             <LinkButton
               displayName={'View More'}

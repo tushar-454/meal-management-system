@@ -3,9 +3,9 @@ import Toast from '../../Utils/Toast/Toast';
 import whome from '../../assets/icon/payment.png';
 import dat from '../../assets/icon/timetable.png';
 import money from '../../assets/icon/wallet.png';
-import useAddMoney from '../../hooks/useAddMoney';
 import useAuth from '../../hooks/useAuth';
 import useAxios from '../../hooks/useAxios';
+import useGetMoney from '../../hooks/useGetMoney';
 import Container from '../Reusable/Container';
 import MealFormLay from '../Reusable/MealFormLay';
 import PageTitle from '../Reusable/PageTitle';
@@ -23,7 +23,12 @@ const AddMoney = () => {
   const [addMoney, setAddMoney] = useState({ ...addMoneyInit });
   const axios = useAxios();
   const { user } = useAuth();
-  const { moneyMonthlyData, isLoading, refetch, total } = useAddMoney();
+  const {
+    moneyMonthlyData,
+    loadmoneyMonthlyData,
+    errormoneyMonthlyData,
+    refetch,
+  } = useGetMoney();
 
   // handle input change
   const handleInputChange = (e) => {
@@ -41,15 +46,25 @@ const AddMoney = () => {
     if (addMoney.money <= 0) {
       return Toast('Add your money above 0.', 'info');
     }
+    if (new Date(date).getTime() > new Date().getTime()) {
+      return Toast("You can't use any date after today", 'info');
+    }
+    if (
+      new Date(date).getMonth() === new Date().getMonth() &&
+      new Date(date).getFullYear() === new Date().getFullYear()
+    ) {
+      return Toast("You can't add money without current month.", 'info');
+    }
     const addMoneyObj = {
       ...addMoney,
       money: parseFloat(money),
       email: user?.email,
     };
     axios.post('/user/add-money', addMoneyObj).then((res) => {
-      if (res.data.insertedId) {
+      if (res.data.message === 'success') {
         Toast('Your Money added successfully', 'success');
         refetch();
+        setAddMoney({ ...addMoneyInit });
       }
     });
   };
@@ -104,23 +119,44 @@ const AddMoney = () => {
               </tr>
             </thead>
             <tbody>
-              {!isLoading &&
-                moneyMonthlyData.map((perpay, index) => (
-                  <tr
-                    key={index}
-                    className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
-                  >
-                    <td>{new Date(perpay.date).toLocaleString()}</td>
-                    <td>{perpay.toWhome}</td>
-                    <td>{perpay.money}</td>
-                    <td>{perpay.status}</td>
+              {!loadmoneyMonthlyData && errormoneyMonthlyData ? (
+                <>
+                  <tr>
+                    <td colSpan={'3'} style={{ textAlign: 'center' }}>
+                      There was an error
+                    </td>
                   </tr>
-                ))}
+                </>
+              ) : (
+                <>
+                  {moneyMonthlyData?.getCurMonthMoneyForEmail?.map(
+                    (perpay, index) => (
+                      <tr
+                        key={index}
+                        className={
+                          (index + 1) % 2 === 0 ? styles.even : styles.odd
+                        }
+                      >
+                        <td>{new Date(perpay.date).toLocaleString()}</td>
+                        <td>{perpay.toWhome}</td>
+                        <td>{perpay.money}</td>
+                        <td>{perpay.status}</td>
+                      </tr>
+                    )
+                  )}
+                </>
+              )}
             </tbody>
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th colSpan={3}>{total}</th>
+                <th colSpan={3}>
+                  {loadmoneyMonthlyData
+                    ? '...'
+                    : errormoneyMonthlyData
+                    ? 0
+                    : moneyMonthlyData?.totalMoney}
+                </th>
               </tr>
             </tfoot>
           </table>

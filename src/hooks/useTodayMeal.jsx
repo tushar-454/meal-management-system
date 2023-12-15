@@ -11,6 +11,7 @@ const useTodayMeal = () => {
     isError,
   } = useQuery({
     queryKey: ['homeTodayMeal'],
+    enabled: user?.email ? true : false,
     queryFn: async () => {
       const res = await axios.get(
         `/user/all-meal?email=${

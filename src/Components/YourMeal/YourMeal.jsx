@@ -11,8 +11,8 @@ import LinkButton from '../UI/LinkButton';
 import styles from './YourMeal.module.css';
 
 const YourMeal = () => {
-  const { todaysMeal: todayMeal, isLoading } = useTodayMeal();
-  const { mealMonthlyData, mealMonthlyDataLoading, userTotalMeal } =
+  const { todaysMeal, isLoading, isError } = useTodayMeal();
+  const { mealMonthlyData, mealMonthlyDataLoading, mealMonthlyDataError } =
     useUserMonthyMeal();
   return (
     <section>
@@ -20,36 +20,46 @@ const YourMeal = () => {
         <PageTitle>Your all meal in month</PageTitle>
         {/* today meal highlight  */}
         <div className={styles.todayMealWrap}>
-          {isLoading ? (
-            <>
-              <h1>Loading...</h1>
-            </>
-          ) : (
-            <>
-              <LinkButton displayName={'Today'} icon={today} />
-              <span>
-                <img src={arrow} alt='arrow' />
-              </span>
-              <LinkButton
-                displayName={todayMeal[0]?.breackfast || '0'}
-                icon={breakfast}
-              />
-              <span>
-                <img src={arrow} alt='arrow' />
-              </span>
-              <LinkButton
-                displayName={todayMeal[0]?.launch || '0'}
-                icon={launch}
-              />
-              <span>
-                <img src={arrow} alt='arrow' />
-              </span>
-              <LinkButton
-                displayName={todayMeal[0]?.dinner || '0'}
-                icon={dinner}
-              />
-            </>
-          )}
+          <LinkButton displayName={'Today'} icon={today} />
+          <span>
+            <img src={arrow} alt='arrow' />
+          </span>
+          <LinkButton
+            displayName={
+              isLoading
+                ? '...'
+                : isError
+                ? 0
+                : todaysMeal?.oneMealByEmailDate[0]?.breackfast
+            }
+            icon={breakfast}
+          />
+          <span>
+            <img src={arrow} alt='arrow' />
+          </span>
+          <LinkButton
+            displayName={
+              isLoading
+                ? '...'
+                : isError
+                ? 0
+                : todaysMeal?.oneMealByEmailDate[0]?.launch
+            }
+            icon={launch}
+          />
+          <span>
+            <img src={arrow} alt='arrow' />
+          </span>
+          <LinkButton
+            displayName={
+              isLoading
+                ? '...'
+                : isError
+                ? 0
+                : todaysMeal?.oneMealByEmailDate[0]?.dinner
+            }
+            icon={dinner}
+          />
         </div>
         {/* indivisual current month list  */}
         <div className={styles.tableWrap}>
@@ -64,10 +74,20 @@ const YourMeal = () => {
             </thead>
             <tbody>
               {mealMonthlyDataLoading ? (
-                <></>
+                <tr>
+                  <td colSpan={'4'} style={{ textAlign: 'center' }}>
+                    Loading...
+                  </td>
+                </tr>
+              ) : mealMonthlyDataError ? (
+                <tr>
+                  <td colSpan={'4'} style={{ textAlign: 'center' }}>
+                    There was an error
+                  </td>
+                </tr>
               ) : (
                 <>
-                  {mealMonthlyData?.map((perday, index) => (
+                  {mealMonthlyData?.curMonthAllMeal?.map((perday, index) => (
                     <tr
                       key={index}
                       className={
@@ -86,7 +106,13 @@ const YourMeal = () => {
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th colSpan={3}>{userTotalMeal}</th>
+                <th colSpan={3}>
+                  {mealMonthlyDataLoading
+                    ? '...'
+                    : mealMonthlyDataError
+                    ? 0
+                    : mealMonthlyData?.curTotalMeal}
+                </th>
               </tr>
             </tfoot>
           </table>

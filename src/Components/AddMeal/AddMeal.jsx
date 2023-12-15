@@ -110,8 +110,8 @@ const AddMeal = () => {
           return Toast('Update successfully', 'success');
         }
       })
-      .catch(() => {
-        return Toast('There was an error', 'error');
+      .catch((error) => {
+        return Toast(error.response.data.message, 'error');
       });
   };
 

@@ -23,6 +23,7 @@ const AddMeal = () => {
   const [mealInfo, setMealInfo] = useState({ ...mealInfoInit });
   const [isUpdate, setIsUpdate] = useState(false);
   const [curMealId, setCurMealId] = useState(null);
+  const [updatePending, setUpdatePending] = useState(false);
   const axios = useAxios();
   const { user } = useAuth();
 
@@ -95,6 +96,7 @@ const AddMeal = () => {
   //handle update meal
   const handleUpdateMeal = (e) => {
     e.preventDefault();
+    setUpdatePending(true);
     const { breackfast, launch, dinner } = mealInfo;
     const updatedMealInfo = {
       breackfast: parseFloat(breackfast),
@@ -112,6 +114,9 @@ const AddMeal = () => {
       })
       .catch((error) => {
         return Toast(error.response.data.message, 'error');
+      })
+      .finally(() => {
+        setUpdatePending(false);
       });
   };
 
@@ -129,7 +134,13 @@ const AddMeal = () => {
           </div>
         )}
         <MealFormLay
-          displayName={isUpdate ? 'Update Todays Meal' : 'Add Meal'}
+          displayName={
+            isUpdate
+              ? updatePending
+                ? 'Updating...'
+                : 'Update Todays Meal'
+              : 'Add Meal'
+          }
           handleSubmit={isUpdate ? handleUpdateMeal : handleAddMealSubmit}
         >
           <Input

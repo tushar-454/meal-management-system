@@ -50,8 +50,8 @@ const AddMoney = () => {
       return Toast("You can't use any date after today", 'info');
     }
     if (
-      new Date(date).getMonth() === new Date().getMonth() &&
-      new Date(date).getFullYear() === new Date().getFullYear()
+      new Date(date).getMonth() !== new Date().getMonth() &&
+      new Date(date).getFullYear() !== new Date().getFullYear()
     ) {
       return Toast("You can't add money without current month.", 'info');
     }

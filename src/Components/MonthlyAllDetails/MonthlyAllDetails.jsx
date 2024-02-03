@@ -7,52 +7,21 @@ import styles from './MonthlyAllDetails.module.css';
 
 const MonthlyAllDetails = () => {
   const axios = useAxios();
-  const allStudentMonthyData = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ];
+
+  const { data: allStudentMonthyData } = useQuery({
+    queryKey: ['allStudentMonthyData'],
+    queryFn: async () => {
+      const res = await axios.get(`/user/monthly-meal`);
+      console.log(res.data);
+      return res.data;
+    },
+  });
   const { data: existingStudents } = useQuery({
     queryKey: ['existingStudents'],
     queryFn: async () => {
-      const res = await axios.get(`/userInfo?accountStatus=active`);
+      const res = await axios.get(`/user/userInfo?accountStatus=active`);
       const activeUserName = res?.data?.map((user) => user.name);
+      console.log(activeUserName);
       return activeUserName;
     },
   });
@@ -82,9 +51,9 @@ const MonthlyAllDetails = () => {
                   className={(index + 1) % 2 === 0 ? styles.even : styles.odd}
                 >
                   <td>01/01/2023</td>
-                  <td>k</td>
+                  <td>{perday.perDayTotal}</td>
                   <td>s</td>
-                  <td>h</td>
+                  <td>{perday.perDayTotal}</td>
                   <td>t</td>
                   <td>j</td>
                   <td>a</td>

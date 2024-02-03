@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 
-const Button = ({ displayName, ...rest }) => {
+const Button = ({ label, ...rest }) => {
   return (
     <button {...rest} className={styles.button}>
-      {displayName}
+      {label}
     </button>
   );
 };
 
 Button.propTypes = {
-  displayName: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default Button;

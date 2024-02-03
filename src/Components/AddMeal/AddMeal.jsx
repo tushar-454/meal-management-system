@@ -39,7 +39,8 @@ const AddMeal = () => {
     const { breackfast, launch, dinner } = mealInfo;
     const date = new Date();
     const mealInfoDate = {
-      email: user.email,
+      name: user?.displayName,
+      email: user?.email,
       date: `${date.getMonth() + 1}/${
         date.getDate() + 1
       }/${date.getFullYear()}`,
